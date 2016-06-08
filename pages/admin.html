@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pannello admin</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#73c2df">
+  <link rel="stylesheet" href="assets/base.min.css">
+</head>
+<body>
+  <div class="topbar">
+    <nav>
+      <a class="nav-item nav-item-selected" href="/">Richieste</a>
+      <a class="nav-item" href="/signout">Logout</a>
+    </nav>
+  </div>
+  <div id="messagebox">
+    <div class="separator">
+      {{- if .}}
+      {{- $n := len .}}
+      <span>{{$n}} nuove richieste</span>
+      {{- else}}
+      <span>Nessuna richiesta</span>
+      {{- end}}
+    </div>
+    {{- if .}}
+    {{- range .}}
+    <div class="form-section">
+      <form action="/account/accept" method="post">
+        <input type="hidden" name="username" value="{{.}}">
+        <button class="btn-green" type="submit">Accept</button>  
+      </form>
+      <form action="/account/deny" method="post">
+        <input type="hidden" name="username" value="{{.}}">
+        <button class="btn-red" type="submit">Deny</button>  
+      </form>
+    </div>
+    {{- end}}
+    {{- end}}
+  </div>
+</body>
+</html>

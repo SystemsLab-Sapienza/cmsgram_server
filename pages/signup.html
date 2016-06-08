@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#73c2df">
+  <link rel="stylesheet" href="assets/base.min.css">
+</head>
+<body>
+  <div class="box">
+    <form action="/signup" id="signup-form" method="post">
+      <div class="form-field">
+        <input id="email-field" type="text" class="text-input text-input-wide" autocapitalize="off" name="email" placeholder="Email">
+      </div>
+      <div class="form-field">
+        <input id="name-field" type="text" class="text-input text-input-wide" autocapitalize="off" name="username" placeholder="Nome utente">
+      </div>
+      <div class="form-field">
+        <input type="password" class="text-input text-input-wide" name="password" placeholder="Password">
+      </div>
+      <div class="form-field">
+        <button class="btn-green" type="submit">Registrati</button>
+      </div>
+    </form>
+    {{- if .}}
+    <div class="form-field">
+      <p class="error-text">{{.}}</p>
+    </div>
+    {{- end}}
+  </div>
+</body>
+<script>
+  function c(e){var n=new XMLHttpRequest;n.open("POST","/isNameTaken",!0),n.send(e),n.onload=function(){"true"==n.responseText?username.classList.add("taken"):username.classList.remove("taken")}}username=document.querySelector("#name-field"),username.oninput=function(e){this.value.length>=3&&c(this.value)};
+</script>
+</html>

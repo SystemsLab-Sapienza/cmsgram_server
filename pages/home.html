@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#73c2df">
+  <link rel="stylesheet" href="assets/base.min.css">
+</head>
+<body>
+  <div class="topbar">
+    <nav>
+      <a class="nav-item nav-item-selected" href="/">Home</a>
+      <a class="nav-item" href="/data/view">Visualizza dati</a>
+      <a class="nav-item" href="/signout">Logout</a>
+    </nav>
+  </div>
+  <div id="messagebox">
+    <div id="message-reply">
+      <form action="/sendMessage" id="message-form" method="post">
+        <textarea name="message"></textarea>
+        <button class="btn-blue" type="submit">Invia messaggio</button>
+      </form>
+    </div>
+    <div class="separator">
+      {{- if .}}
+      <span>Messaggi precedenti</span>
+      {{- else}}
+      <span>Nessun messaggio precedente</span>
+      {{- end}}
+    </div>
+    {{- if .}}
+    <div id="message-list">
+      <ul>
+        {{- range .}}
+        <li>
+          <div class="message"><p>{{.}}</p></div>
+        </li>
+        {{- end}}
+      </ul>
+    </div>
+    {{- end}}
+  </div>
+</body>
+</html>

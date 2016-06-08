@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modifica dati</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#73c2df">
+  <link rel="stylesheet" href="/assets/base.min.css">
+  <script src="/assets/view.js" defer></script>
+</head>
+<body>
+  <div class="topbar">
+    <nav>
+      <a class="nav-item" href="/">Home</a>
+      <a class="nav-item nav-item-selected" href="/data/edit">Modifica dati</a>
+      <a class="nav-item" href="/signout">Logout</a>
+    </nav>
+  </div>
+  <div id="databox">
+    {{- if .}}
+    <form action="/data/edit" id="data-form" method="post">
+      <div class="form-section" id="email-info">
+        <div class="form-field">
+          <input type="text" class="text-input" placeholder="Email" name="email" value="{{.Email}}">
+          {{- if not .EmailAltre}}
+          <p id="email-field-aside" class="form-field-aside" onclick="addEmail()">Aggiungi email &#x25BE</p>
+          {{- end}}
+        </div>
+        {{- if .EmailAltre}}
+        {{- $len := len .EmailAltre}}
+        {{- range $i, $el := .EmailAltre}}
+        <div class="form-field">
+          <input type="text" class="text-input" placeholder="Altra email" name="email" value="{{$el}}">
+          {{- if isLast $i $len}}
+          <p id="email-field-aside" class="form-field-aside" onclick="addEmail()">Aggiungi email &#x25BE</p>
+          {{- end}}
+        </div>
+        {{- end}}
+        {{- end}}
+      </div>
+      <div class="separator">Informazioni di base</div>
+      <div class="form-section">
+        <div class="form-field">
+          <input type="text" class="text-input" placeholder="Nome" name="fname" value="{{.Nome}}">
+          <input type="text" class="text-input fright" placeholder="Cognome" name="lname" value="{{.Cognome}}">
+        </div>
+        <div class="form-field">
+          <select name="type" id="" class="text-input">
+            <option value="type-0" {{if strcmp .Tipo "type-0"}}selected="selected"{{end}}>Seleziona tipo</option>
+            <option value="type-1" {{if strcmp .Tipo "type-1"}}selected="selected"{{end}}>Ricercatore</option>
+            <option value="type-2" {{if strcmp .Tipo "type-2"}}selected="selected"{{end}}>Professore associato</option>
+            <option value="type-3" {{if strcmp .Tipo "type-3"}}selected="selected"{{end}}>Professore ordinario</option>
+            <option value="type-4" {{if strcmp .Tipo "type-4"}}selected="selected"{{end}}>Professore emerito</option>
+            <option value="type-5" {{if strcmp .Tipo "type-5"}}selected="selected"{{end}}>Altro</option>
+          </select>
+        </div>
+      </div>
+      <div class="separator">Recapiti</div>
+      <div class="form-section" id="info-address">
+        <div class="form-field">
+          <input type="text" class="text-input" placeholder="Indirizzo" name="address" value="{{.Indirizzo}}">
+          <input type="text" class="text-input fright" placeholder="Telefono" name="phone" value="{{.Telefono}}">
+        </div>
+        <div class="form-field">
+          <input type="text" class="text-input" placeholder="Sito" name="url" value="{{.Sito}}">
+          {{- if not .SitoAltri}}
+          <p id="website-field-aside" class="form-field-aside" onclick="addSite()">Aggiungi sito &#x25BE</p>
+          {{- end}}
+        </div>
+        {{- if .SitoAltri}}
+        {{- $len := len .SitoAltri}}
+        {{- range $i, $el := .SitoAltri}}
+        <div class="form-field">
+          <input type="text" class="text-input" placeholder="Altro sito" name="url" value="{{$el}}">
+          {{- if isLast $i $len}}
+          <p id="website-field-aside" class="form-field-aside" onclick="addSite()">Aggiungi sito &#x25BE</p>
+          {{- end}}
+        </div>
+        {{- end}}
+        {{- end}}
+      </div>
+      <div class="form-field">
+        <button class="btn-blue" type="submit">Salva modifiche</button>
+      </div>
+    </form>
+    {{- end}}
+  </div>
+</div>
+<script type="text/template" id="info-email-template">
+  <input type="text" class="text-input" placeholder="Altra email" name="email">
+  <p id="email-field-aside" class="form-field-aside" onclick="addEmail()">Aggiungi email &#x25BE</p>
+</script>
+<script type="text/template" id="info-address-template">
+  <input type="text" class="text-input" placeholder="Altro sito" name="url">
+  <p id="website-field-aside" class="form-field-aside" onclick="addSite()">Aggiungi sito &#x25BE</p>
+</script>
+</body>
+</html>
