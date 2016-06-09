@@ -9,7 +9,7 @@ import (
 
 func accountActivate(w http.ResponseWriter, r *http.Request) error {
 	var (
-		renderUserData = struct {
+		userData = struct {
 			Email    string `redis:"email"`
 			Username string `redis:"username"`
 			Hash     string `redis:"hash"`
@@ -29,21 +29,21 @@ func accountActivate(w http.ResponseWriter, r *http.Request) error {
 		return ErrBadToken
 	}
 
-	err = redis.ScanStruct(user, &renderUserData)
+	err = redis.ScanStruct(user, &userData)
 	if err != nil {
 		return ErrDB
 	}
 
-	_, err = conn.Do("HMSET", redis.Args{}.Add("webapp:users:pending:"+renderUserData.Username).AddFlat(&renderUserData)...)
+	_, err = conn.Do("HMSET", redis.Args{}.Add("webapp:users:pending:"+userData.Username).AddFlat(&userData)...)
 	if err != nil {
 		return ErrDB
 	}
 
 	conn.Send("MULTI")
 	conn.Send("DEL", "webapp:temp:token:"+token)
-	conn.Send("DEL", "webapp:temp:users:"+renderUserData.Username)
-	conn.Send("DEL", "webapp:temp:email:"+renderUserData.Email)
-	conn.Send("RPUSH", "webapp:users:pending", renderUserData.Username)
+	conn.Send("DEL", "webapp:temp:users:"+userData.Username)
+	conn.Send("DEL", "webapp:temp:email:"+userData.Email)
+	conn.Send("RPUSH", "webapp:users:pending", userData.Username)
 	// HMSET
 	_, err = conn.Do("EXEC")
 	if err != nil {

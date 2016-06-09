@@ -10,7 +10,7 @@ import (
 
 func accountAccept(w http.ResponseWriter, r *http.Request) error {
 	var (
-		renderUserData = struct {
+		userData = struct {
 			Email    string `redis:"email"`
 			Username string `redis:"username"`
 			Hash     string `redis:"hash"`
@@ -51,7 +51,7 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 		return ErrGeneric // TODO use more specific error
 	}
 
-	err = redis.ScanStruct(data, &renderUserData)
+	err = redis.ScanStruct(data, &userData)
 	if err != nil {
 		return ErrDB
 	}
@@ -62,9 +62,9 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	conn.Send("MULTI")
-	conn.Send("HSET", "webapp:users", renderUserData.Username, user)
-	conn.Send("SADD", "webapp:users:email", renderUserData.Email)
-	conn.Send("LREM", "webapp:users:pending", 0, renderUserData.Username)
+	conn.Send("HSET", "webapp:users", userData.Username, user)
+	conn.Send("SADD", "webapp:users:email", userData.Email)
+	conn.Send("LREM", "webapp:users:pending", 0, userData.Username)
 	conn.Send("RENAME", "webapp:users:pending:"+username, "webapp:users:"+strconv.Itoa(user))
 	_, err = conn.Do("EXEC")
 	if err != nil {
