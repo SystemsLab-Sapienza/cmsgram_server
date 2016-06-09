@@ -30,7 +30,7 @@ func serveHome(w http.ResponseWriter, r *http.Request, user string) error {
 	conn := Pool.Get()
 	defer conn.Close()
 
-	// Fetch the last ten message
+	// Fetch the last ten sent messages
 	messages, err := redis.Strings(conn.Do("LRANGE", "webapp:messages:"+user, 0, 9))
 	if err != nil {
 		return ErrDB
@@ -69,9 +69,15 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 			}
 
 			if admin {
-				serveAdminPanel(w, r)
-			} else if err := serveHome(w, r, user); err != nil {
-				http.Error(w, "Internal error", http.StatusInternalServerError)
+				if err := serveAdminPanel(w, r); err != nil {
+					http.Error(w, "Internal error", http.StatusInternalServerError)
+					log.Printf("handling %q: %v", r.RequestURI, err)
+				}
+			} else {
+				if err := serveHome(w, r, user); err != nil {
+					http.Error(w, "Internal error", http.StatusInternalServerError)
+					log.Printf("handling %q: %v", r.RequestURI, err)
+				}
 			}
 		} else {
 			t, err := template.ParseFiles("pages/signin.html")
