@@ -1,5 +1,5 @@
 _*
-data_model.txt
 webapp.conf
 *.DS_Store
-
+*.json
+*.txt

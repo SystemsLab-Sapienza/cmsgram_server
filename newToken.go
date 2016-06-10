@@ -1,7 +1,7 @@
 package main
 
 import (
-	"auth"
+	"webapp/auth"
 
 	"github.com/garyburd/redigo/redis"
 )
