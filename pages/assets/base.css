@@ -28,6 +28,10 @@ input {
   font-size: 13px;
   padding: 4px;
 }
+label {
+  font-family: sans-serif;
+  font-size: 13px;
+}
 ol,
 ul {
   list-style-type: none

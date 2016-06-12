@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	// "auth"
+	// "webapp/auth"
 
 	"github.com/garyburd/redigo/redis"
 	"golang.org/x/crypto/bcrypt"
@@ -14,8 +14,12 @@ import (
 
 func signin(w http.ResponseWriter, r *http.Request) error {
 	var (
-		user = r.PostFormValue("username")
-		pwd  = r.PostFormValue("password")
+		user       = r.PostFormValue("username")
+		pwd        = r.PostFormValue("password")
+		rememberme = r.PostFormValue("rememberme")
+
+		cookie  http.Cookie
+		exptime time.Time
 	)
 
 	if user == "" {
@@ -52,8 +56,13 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	exptime := time.Now().AddDate(1, 0, 0)
-	cookie := http.Cookie{Name: "auth", Value: token, Expires: exptime}
+	if rememberme == "" {
+		exptime = time.Now().AddDate(0, 0, 1)
+		cookie = http.Cookie{Name: "auth", Value: token, HttpOnly: true}
+	} else {
+		exptime = time.Now().AddDate(1, 0, 0)
+		cookie = http.Cookie{Name: "auth", Value: token, Expires: exptime, HttpOnly: true}
+	}
 	http.SetCookie(w, &cookie)
 
 	conn.Send("MULTI")
