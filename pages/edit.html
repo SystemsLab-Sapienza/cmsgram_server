@@ -79,11 +79,21 @@
         {{- end}}
         {{- end}}
       </div>
-      <div class="form-field">
-        <button class="btn-blue" type="submit">Salva modifiche</button>
+      <div class="form-section">
+        <div class="form-field">
+          <button class="btn-blue fright" type="submit">Salva modifiche</button>
+        </div>
       </div>
     </form>
     {{- end}}
+    <div class="separator">Elimina account e dati associati</div>
+    <div class="form-section">
+      <div class="form-field">
+        <form action="/account/delete" id="account-delete-form" method="post">
+          <button class="btn-red fright" type="submit">Cancella account</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 <script type="text/template" id="info-email-template">

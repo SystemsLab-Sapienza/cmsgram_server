@@ -16,6 +16,7 @@ button {
   float: right;
   font-size: 13px;
   height: 30px;
+  margin-left: 5px;
   padding-right: 12px;
   padding-left: 12px;
   color: white;
