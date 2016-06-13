@@ -37,7 +37,6 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 	if err := r.ParseForm(); err != nil {
 		return ErrGeneric
 	}
-
 	for k, v := range r.Form {
 		switch k {
 		case "email":
@@ -80,13 +79,24 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 	conn := Pool.Get()
 	defer conn.Close()
 
-	// Last name changed
+	// Last name has changed
 	lname, err := redis.String(conn.Do("HGET", "webapp:users:data:"+uid, "cognome"))
-	if lname != "" && lname != user.Cognome {
-		// TODO usa un set per gestire le collisioni, gestisci errori
-		_, err = conn.Do("HSET", "webapp:info", strings.ToLower(user.Cognome), uid)
-		if err != nil {
-			return ErrDB
+	if err != nil && err != redis.ErrNil {
+		return ErrDB
+	}
+	if lname != user.Cognome {
+		if lname != "" {
+			_, err = conn.Do("SREM", "webapp:users:info:"+strings.ToLower(lname), uid)
+			if err != nil {
+				return ErrDB
+			}
+		}
+
+		if user.Cognome != "" {
+			_, err = conn.Do("SADD", "webapp:users:info:"+strings.ToLower(user.Cognome), uid)
+			if err != nil {
+				return ErrDB
+			}
 		}
 	}
 
@@ -95,6 +105,7 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 
+	// Re-save the email addresses
 	_, err = conn.Do("DEL", "webapp:users:data:email:"+uid)
 	if err != nil {
 		return ErrDB
@@ -106,6 +117,7 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 		}
 	}
 
+	// Re-save the websites
 	_, err = conn.Do("DEL", "webapp:users:data:url:"+uid)
 	if err != nil {
 		return ErrDB
