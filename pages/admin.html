@@ -26,11 +26,11 @@
     {{- if .}}
     {{- range .}}
     <div class="form-section">
-      <form action="/account/accept" method="post">
+      <form action="/account/accept" id="account-accept-form" method="post">
         <input type="hidden" name="username" value="{{.}}">
         <button class="btn-green" type="submit">Accept</button>  
       </form>
-      <form action="/account/deny" method="post">
+      <form action="/account/deny" id="account-deny-form" method="post">
         <input type="hidden" name="username" value="{{.}}">
         <button class="btn-red" type="submit">Deny</button>  
       </form>
