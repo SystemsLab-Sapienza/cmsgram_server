@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#73c2df">
   <link rel="stylesheet" href="assets/base.min.css">
+  <script src="/assets/signup.js" defer></script>
 </head>
 <body>
   <div class="box">
@@ -30,7 +31,4 @@
     {{- end}}
   </div>
 </body>
-<script>
-  function c(e){var n=new XMLHttpRequest;n.open("POST","/isNameTaken",!0),n.send(e),n.onload=function(){"true"==n.responseText?username.classList.add("taken"):username.classList.remove("taken")}}username=document.querySelector("#name-field"),username.oninput=function(e){this.value.length>=3&&c(this.value)};
-</script>
 </html>
