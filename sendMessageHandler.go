@@ -2,10 +2,16 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"net/http"
 )
 
 func sendMessage(w http.ResponseWriter, r *http.Request) error {
+	var payload = struct {
+		Key   string
+		Value string
+	}{}
+
 	logged, user, err := isLoggedIn(w, r)
 	if err != nil {
 		return err
@@ -25,10 +31,19 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 			return ErrDB
 		}
 
-		// TODO use more specific error
-		_, err := http.Post(Config.SendMessageEndpoint, "text/plain", bytes.NewReader([]byte(msg)))
+		// Create the JSON payload
+		payload.Key = "message"
+		payload.Value = msg
+		data, err := json.Marshal(&payload)
 		if err != nil {
-			return err
+			return ErrGeneric
+		}
+
+		// TODO use more specific error
+		// Send the payload
+		_, err = http.Post(Config.SendMessageEndpoint, "application/json", bytes.NewReader(data))
+		if err != nil {
+			return ErrGeneric
 		}
 	}
 
