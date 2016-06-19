@@ -65,6 +65,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		if logged {
 			admin, err := isUserAdmin(user)
 			if err != nil {
+				http.Error(w, "Internal error", http.StatusInternalServerError)
+				log.Printf("handling %q: %v", r.RequestURI, err)
 				return
 			}
 
