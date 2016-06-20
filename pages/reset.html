@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reset password</title>
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#73c2df">
+  <link rel="stylesheet" href="/assets/base.min.css">
+</head>
+<body>
+  <div class="box">
+    <form action="/auth/reset" id="auth-reset-password-form" method="post">
+      <div class="form-field">
+        <input type="text" class="text-input text-input-wide" autocapitalize="off" name="username" placeholder="Nome utente">
+      </div>
+      <div class="form-field">
+        <input type="text" class="text-input text-input-wide" autocapitalize="off" name="email" placeholder="Email">
+      </div>
+      <div class="form-field">
+        <button class="btn-blue" type="submit">Invia link di reset</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -21,6 +21,7 @@ func init() {
 	http.HandleFunc("/account/activate", accountActivateHandler)
 	http.HandleFunc("/account/delete", accountDeleteHandler)
 	http.HandleFunc("/account/deny", accountDenyHandler)
+	http.HandleFunc("/auth/reset", resetPasswordHandler)
 	http.HandleFunc("/data/view", dataViewHandler)
 	http.HandleFunc("/data/edit", dataEditHandler)
 	http.HandleFunc("/isNameTaken", isNameTakenHandler)

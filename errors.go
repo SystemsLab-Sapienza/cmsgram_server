@@ -11,6 +11,7 @@ var (
 	ErrEMailTaken       = errors.New("Indirizzo email già in uso.")
 	ErrFieldEmpty       = errors.New("Uno o più campi vuoti.")
 	ErrGeneric          = errors.New("Errore interno.")
+	ErrNoMatch          = errors.New("I campi non corrispondono.")
 	ErrNoPassword       = errors.New("Il campo password non può essere vuoto.")
 	ErrNoUsername       = errors.New("Il campo username non può essere vuoto.")
 	ErrNameTaken        = errors.New("Nome utente già in uso.")

@@ -35,6 +35,10 @@ func newLoginToken(len int) (string, error) {
 	return newUniqueToken(len, "webapp:auth:login:")
 }
 
+func newResetToken(len int) (string, error) {
+	return newUniqueToken(len, "webapp:auth:reset:")
+}
+
 func newSessionToken(len int) (string, error) {
 	return newUniqueToken(len, "webapp:auth:session:")
 }
