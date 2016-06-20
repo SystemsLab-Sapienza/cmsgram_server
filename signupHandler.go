@@ -36,13 +36,19 @@ func sendAuthLink(email string) (string, error) {
 func signup(w http.ResponseWriter, r *http.Request) error {
 	var (
 		user  = r.PostFormValue("username")
-		pwd   = r.PostFormValue("password")
+		pwd1  = r.PostFormValue("password1")
+		pwd2  = r.PostFormValue("password2")
 		email = r.PostFormValue("email")
 	)
 
 	// One or more fields empty
-	if user == "" || pwd == "" || email == "" {
+	if user == "" || pwd1 == "" || pwd2 == "" || email == "" {
 		return ErrFieldEmpty
+	}
+
+	// Password fields must match
+	if pwd1 != pwd2 {
+		return ErrNoMatch
 	}
 
 	// TODO get pattern from config file
@@ -91,7 +97,7 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 		return ErrNameTaken
 	}
 
-	hash, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+	hash, err := bcrypt.GenerateFromPassword([]byte(pwd1), bcrypt.DefaultCost)
 	if err != nil {
 		return ErrGeneric
 	}
