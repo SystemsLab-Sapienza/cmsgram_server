@@ -25,7 +25,7 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 		conn := Pool.Get()
 		defer conn.Close()
 
-		// Push the message on the message queue
+		// Push the message to the user's message queue
 		_, err = conn.Do("LPUSH", "webapp:messages:"+user, msg)
 		if err != nil {
 			return ErrDB
@@ -39,11 +39,10 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 			return ErrGeneric
 		}
 
-		// TODO use more specific error
 		// Send the payload
 		_, err = http.Post(Config.SendMessageEndpoint, "application/json", bytes.NewReader(data))
 		if err != nil {
-			return ErrGeneric
+			return ErrNoServer
 		}
 	}
 
