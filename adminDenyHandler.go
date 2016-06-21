@@ -47,7 +47,7 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-func accountDenyHandler(w http.ResponseWriter, r *http.Request) {
+func adminDenyHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if r.Method == "POST" {

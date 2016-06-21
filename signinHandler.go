@@ -58,10 +58,10 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 
 	if rememberme == "" {
 		exptime = time.Now().AddDate(0, 0, 1)
-		cookie = http.Cookie{Name: "auth", Value: token, HttpOnly: true}
+		cookie = http.Cookie{Name: "auth", Value: token, Path: "/", HttpOnly: true}
 	} else {
 		exptime = time.Now().AddDate(1, 0, 0)
-		cookie = http.Cookie{Name: "auth", Value: token, Expires: exptime, HttpOnly: true}
+		cookie = http.Cookie{Name: "auth", Value: token, Path: "/", Expires: exptime, HttpOnly: true}
 	}
 	http.SetCookie(w, &cookie)
 

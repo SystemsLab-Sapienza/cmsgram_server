@@ -17,18 +17,18 @@ var (
 func init() {
 	http.Handle("/assets/", http.FileServer(http.Dir("pages")))
 	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/account/accept", accountAcceptHandler)
 	http.HandleFunc("/account/activate", accountActivateHandler)
 	http.HandleFunc("/account/delete", accountDeleteHandler)
-	http.HandleFunc("/account/deny", accountDenyHandler)
-	http.HandleFunc("/auth/reset", resetPasswordHandler)
-	http.HandleFunc("/data/view", dataViewHandler)
+	http.HandleFunc("/account/password/reset", resetPasswordHandler)
+	http.HandleFunc("/account/signin", signinHandler)
+	http.HandleFunc("/account/signout", signoutHandler)
+	http.HandleFunc("/account/signup", signupHandler)
+	http.HandleFunc("/admin/accept", adminAcceptHandler)
+	http.HandleFunc("/admin/deny", adminDenyHandler)
 	http.HandleFunc("/data/edit", dataEditHandler)
+	http.HandleFunc("/data/view", dataViewHandler)
 	http.HandleFunc("/isNameTaken", isNameTakenHandler)
 	http.HandleFunc("/sendMessage", sendMessageHandler)
-	http.HandleFunc("/signin", signinHandler)
-	http.HandleFunc("/signout", signoutHandler)
-	http.HandleFunc("/signup", signupHandler)
 
 	// Create a thread-safe connection pool for redis
 	Pool = &redis.Pool{

@@ -75,7 +75,7 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-func accountAcceptHandler(w http.ResponseWriter, r *http.Request) {
+func adminAcceptHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if r.Method == "POST" {
