@@ -38,7 +38,7 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	lname, err := redis.String(conn.Do("HGET", "webapp:users:data:"+uid, "cognome"))
-	if err != nil {
+	if err != nil && err != redis.ErrNil {
 		return ErrDB
 	}
 
