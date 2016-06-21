@@ -39,6 +39,8 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 		pwd1  = r.PostFormValue("password1")
 		pwd2  = r.PostFormValue("password2")
 		email = r.PostFormValue("email")
+
+		recipient string
 	)
 
 	// One or more fields empty
@@ -103,10 +105,13 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	if Config.EmailTestAddress != "" {
-		email = Config.EmailTestAddress
+		recipient = Config.EmailTestAddress
+	} else {
+		recipient = email
 	}
+
 	// TODO Return a more specific error
-	token, err := sendAuthLink(email)
+	token, err := sendAuthLink(recipient)
 	if err != nil {
 		return ErrGeneric
 	}
