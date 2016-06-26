@@ -31,7 +31,6 @@ func readConfigFile(filepath string) error {
 	f, err := os.Open(filepath)
 	if err != nil {
 		log.Fatal("main: os.Open:", err) // TODO handle file not found
-		return err
 	}
 
 	r := csv.NewReader(f)

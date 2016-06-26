@@ -54,12 +54,10 @@ func main() {
 	err := os.Chdir(Config.WorkingDirectory)
 	if err != nil {
 		log.Fatal("main: os.Chdir:", err)
-		return
 	}
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal("main: http.ListenAndServe:", err)
-		return
 	}
 }
