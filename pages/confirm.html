@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Conferma</title>
+  <meta charset='utf-8'>
+  <!-- <meta name="description" content="">  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#73c2df">
+  <link rel="stylesheet" href="/assets/base.css">
+</head>
+<style>
+  .info-text {
+    background: #EFE395;
+    border-radius: 2px;
+    border: solid 1px #DDCF88;
+    box-shadow: inset 0 1px 1px #F9F4D8;
+    color: #3A1D06;
+    font-family: sans-serif;
+    font-size: 13px;
+    padding: 6px;
+  }
+</style>
+<body>
+  <div class="box">
+    <div class="form-field">
+      <p class="info-text">{{.}}</p>
+    </div>
+    <form action="/" id="confirm-form" method="get">
+      <div class="form-field">
+        <button class="btn-green" type="submit">Okay</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

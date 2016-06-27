@@ -150,7 +150,13 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		t, err := template.ParseFiles("pages/confirm.html")
+		if err != nil {
+			http.Error(w, "Internal error", http.StatusInternalServerError)
+			log.Printf("handling %q: %v", r.RequestURI, err)
+			return // TODO check
+		}
+		t.Execute(w, "E' stato inviato un link di attivazione all'indirizzo email fornito.")
 	} else if r.Method == "GET" {
 		t, err := template.ParseFiles("pages/signup.html")
 		if err != nil {

@@ -1,8 +1,9 @@
 package main
 
 import (
+	"html/template"
+	"log"
 	"net/http"
-	// "strconv"
 
 	"github.com/garyburd/redigo/redis"
 )
@@ -59,10 +60,14 @@ func accountActivateHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		if err := accountActivate(w, r); err != nil {
 			w.Write([]byte(err.Error()))
-			return
 		} else {
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-			return
+			t, err := template.ParseFiles("pages/confirm.html")
+			if err != nil {
+				http.Error(w, "Internal error", http.StatusInternalServerError)
+				log.Printf("handling %q: %v", r.RequestURI, err)
+				return // TODO check
+			}
+			t.Execute(w, "L'account è ora attivo.")
 		}
 	} else {
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)

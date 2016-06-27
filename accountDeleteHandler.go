@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 	"strings"
@@ -59,7 +60,13 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	t, err := template.ParseFiles("pages/confirm.html")
+	if err != nil {
+		http.Error(w, "Internal error", http.StatusInternalServerError)
+		log.Printf("handling %q: %v", r.RequestURI, err)
+		return err
+	}
+	t.Execute(w, "L'account è stato eliminato.")
 
 	return nil
 }

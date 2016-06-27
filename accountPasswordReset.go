@@ -16,7 +16,7 @@ func sendResetLink(email string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	text := "Clicka il link seguente per resettare la tua password.\n" + "http://localhost:8080/auth/reset?token=" + token
+	text := "Clicka il link seguente per resettare la tua password.\n" + "http://localhost:8080/account/password/reset?token=" + token
 
 	smtpAuth := smtp.PlainAuth("", Config.EmailUsername, Config.EmailPassword, "smtp.gmail.com")
 
@@ -110,8 +110,13 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			// TODO return page saying a reset link has been sent
-			http.Redirect(w, r, "/", http.StatusSeeOther)
+			t, err := template.ParseFiles("pages/confirm.html")
+			if err != nil {
+				http.Error(w, "Internal error", http.StatusInternalServerError)
+				log.Printf("handling %q: %v", r.RequestURI, err)
+				return err
+			}
+			t.Execute(w, "Il link di reset è stato inviato all'indirizzo email fornito.")
 		} else { // Post request w/ token means the user has submitted the change password form
 			var (
 				pwd1 = r.PostFormValue("password1")
@@ -155,8 +160,14 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 			if err != nil {
 				return ErrDB
 			}
-			// TODO return page saying the password has been reset
-			http.Redirect(w, r, "/", http.StatusSeeOther)
+
+			t, err := template.ParseFiles("pages/confirm.html")
+			if err != nil {
+				http.Error(w, "Internal error", http.StatusInternalServerError)
+				log.Printf("handling %q: %v", r.RequestURI, err)
+				return err
+			}
+			t.Execute(w, "La password è stata modificata.")
 		}
 	} else {
 		http.Error(w, "GET/POST ONLY", http.StatusMethodNotAllowed)
