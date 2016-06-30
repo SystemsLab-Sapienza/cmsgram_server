@@ -9,19 +9,36 @@ import (
 )
 
 func serveAdminPanel(w http.ResponseWriter, r *http.Request) error {
+	type user struct {
+		Username string
+		Email    string
+	}
+	var userlist []user
+
 	conn := Pool.Get()
 	defer conn.Close()
 
+	// Get the list of usernames waiting to be accepted
 	users, err := redis.Strings(conn.Do("LRANGE", "webapp:users:pending", 0, -1))
 	if err != nil {
 		return ErrDB
+	}
+
+	// For each username get the associated email and add both to the slice
+	for _, u := range users {
+		email, err := redis.String(conn.Do("HGET", "webapp:users:pending:"+u, "email"))
+		if err != nil {
+			return ErrDB
+		}
+
+		userlist = append(userlist, user{u, email})
 	}
 
 	t, err := template.ParseFiles("pages/admin.html")
 	if err != nil {
 		return err
 	}
-	t.Execute(w, users)
+	t.Execute(w, userlist)
 
 	return nil
 }

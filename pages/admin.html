@@ -26,14 +26,20 @@
     {{- if .}}
     {{- range .}}
     <div class="form-section">
-      <form action="/admin/accept" id="admin-accept-form" method="post">
-        <input type="hidden" name="username" value="{{.}}">
-        <button class="btn-green" type="submit">Accept</button>  
-      </form>
-      <form action="/admin/deny" id="admin-deny-form" method="post">
-        <input type="hidden" name="username" value="{{.}}">
-        <button class="btn-red" type="submit">Deny</button>  
-      </form>
+      <div class="form-field">
+        <input type="text" class="text-input" name="username" value="{{.Username}}" disabled>
+        <input type="text" class="text-input fright" name="email" value="{{.Email}}" disabled>
+      </div>
+      <div class="form-field">
+        <form action="/admin/accept" id="admin-accept-form" method="post">
+          <input type="hidden" name="username" value="{{.Username}}">
+          <button class="btn-green" type="submit">Accept</button>
+        </form>
+        <form action="/admin/deny" id="admin-deny-form" method="post">
+          <input type="hidden" name="username" value="{{.Username}}">
+          <button class="btn-red" type="submit">Deny</button>
+        </form>
+      </div>
     </div>
     {{- end}}
     {{- end}}
