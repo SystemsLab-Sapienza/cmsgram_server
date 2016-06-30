@@ -19,7 +19,7 @@ func sendAuthLink(email string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	text := "Clicka il link seguente per verificare la tua email.\n" + "http://localhost:8080/account/activate?token=" + authString
+	text := "Clicka il link seguente per verificare la tua email.\n" + Config.Domain + "/account/activate?token=" + authString
 
 	smtpAuth := smtp.PlainAuth("", Config.EmailUsername, Config.EmailPassword, "smtp.gmail.com")
 

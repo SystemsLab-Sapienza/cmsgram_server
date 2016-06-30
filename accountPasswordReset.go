@@ -16,7 +16,7 @@ func sendResetLink(email string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	text := "Clicka il link seguente per resettare la tua password.\n" + "http://localhost:8080/account/password/reset?token=" + token
+	text := "Clicka il link seguente per resettare la tua password.\n" + Config.Domain + "/account/password/reset?token=" + token
 
 	smtpAuth := smtp.PlainAuth("", Config.EmailUsername, Config.EmailPassword, "smtp.gmail.com")
 

@@ -12,6 +12,8 @@ import (
 
 var (
 	Config = struct {
+		Domain string
+
 		EmailServer      string
 		EmailUsername    string
 		EmailPassword    string
@@ -50,6 +52,9 @@ func readConfigFile(filepath string) error {
 		}
 
 		switch record[0] {
+		case "domain":
+			Config.Domain = record[1]
+			break
 		case "redis_domain":
 			Config.RedisDomain = record[1]
 			break
