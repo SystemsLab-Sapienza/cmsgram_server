@@ -161,6 +161,12 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
+			// Invalidate current session
+			_, err = conn.Do("HSET", "webapp:users:"+uid, "auth", "")
+			if err != nil {
+				return ErrDB
+			}
+
 			t, err := template.ParseFiles("pages/confirm.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
