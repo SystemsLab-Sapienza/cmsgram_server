@@ -19,7 +19,7 @@ func sendAuthLink(email string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	text := "Clicka il link seguente per verificare la tua email.\n" + Config.Domain + "/account/activate?token=" + authString
+	text := "Clicka il link seguente per verificare la tua email.\n" + Config.Domain + "/account/verify?token=" + authString
 
 	smtpAuth := smtp.PlainAuth("", Config.EmailUsername, Config.EmailPassword, "smtp.gmail.com")
 
@@ -156,7 +156,7 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 			log.Printf("handling %q: %v", r.RequestURI, err)
 			return // TODO check
 		}
-		t.Execute(w, "E' stato inviato un link di attivazione all'indirizzo email fornito.")
+		t.Execute(w, "E' stato inviato un link per verificare l'indirizzo email fornito.")
 	} else if r.Method == "GET" {
 		t, err := template.ParseFiles("pages/signup.html")
 		if err != nil {

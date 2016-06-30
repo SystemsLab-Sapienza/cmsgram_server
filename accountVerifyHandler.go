@@ -54,7 +54,7 @@ func accountActivate(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-func accountActivateHandler(w http.ResponseWriter, r *http.Request) {
+func accountVerifyHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if r.Method == "GET" {
@@ -67,7 +67,7 @@ func accountActivateHandler(w http.ResponseWriter, r *http.Request) {
 				log.Printf("handling %q: %v", r.RequestURI, err)
 				return // TODO check
 			}
-			t.Execute(w, "L'account è ora attivo.")
+			t.Execute(w, "L'indirizzo email è stato verificato. Attendi che l'amministratore attivi l'account.")
 		}
 	} else {
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
