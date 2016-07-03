@@ -4,7 +4,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"net/smtp"
 	"regexp"
 	"time"
 
@@ -12,25 +11,21 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// TODO the text and the URL must be taken from the config file.
-// Send an authentication link to the given email and returns the token
-func sendAuthLink(email string) (string, error) {
-	authString, err := newActivationToken(32)
+// Sends an authentication link to the given email and returns the token
+func sendAuthLink(to string) (token string, err error) {
+	// Generate a new verification token
+	token, err = newActivationToken(32)
 	if err != nil {
-		return "", err
-	}
-	text := "Clicka il link seguente per verificare la tua email.\n" + Config.Domain + "/account/verify?token=" + authString
-
-	smtpAuth := smtp.PlainAuth("", Config.EmailUsername, Config.EmailPassword, "smtp.gmail.com")
-
-	to := []string{email}
-
-	err = smtp.SendMail(Config.EmailServer, smtpAuth, "", to, []byte(text))
-	if err != nil {
-		return "", err
+		return
 	}
 
-	return authString, nil
+	subject := "Link di verifica"
+	body := "Clicka il seguente link per verificare la tua email:\n" +
+		Config.Domain + "/account/email/verify?token=" + token
+
+	go sendEmail(to, subject, body)
+
+	return
 }
 
 func signup(w http.ResponseWriter, r *http.Request) error {
