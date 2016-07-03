@@ -71,6 +71,12 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 
+	// Send email update to user
+	subject := "Account attivato"
+	body := "Il tuo account è stato approvato dall'amministratore ed è ora attivo:\n" +
+		Config.Domain
+	go sendEmail(userData.Email, subject, body)
+
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return nil
 }

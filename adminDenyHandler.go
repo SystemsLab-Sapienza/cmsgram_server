@@ -3,7 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
-	// "github.com/garyburd/redigo/redis"
+
+	"github.com/garyburd/redigo/redis"
 )
 
 func accountDeny(w http.ResponseWriter, r *http.Request) error {
@@ -35,6 +36,13 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 		return ErrFieldEmpty
 	}
 
+	// Get user's email address
+	to, err := redis.String(conn.Do("HGET", "webapp:users:pending:"+username, "email"))
+	if err != nil {
+		return ErrDB
+	}
+
+	// Delete account data
 	conn.Send("MULTI")
 	conn.Send("LREM", "webapp:users:pending", 0, username)
 	conn.Send("DEL", "webapp:users:pending:"+username)
@@ -42,6 +50,11 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 	if err != nil {
 		return ErrDB
 	}
+
+	// Send email update to user
+	subject := "Attivazione account rifiutata"
+	body := "L'amministratore ha rifiutato la tua richiesta di attivazione dell'account."
+	go sendEmail(to, subject, body)
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return nil

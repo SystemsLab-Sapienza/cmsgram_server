@@ -4,30 +4,26 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"net/smtp"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func sendResetLink(email string) (string, error) {
-	token, err := newResetToken(32)
+func sendResetLink(to string) (token string, err error) {
+	// Generate a new reset token
+	token, err = newResetToken(32)
 	if err != nil {
-		return "", err
-	}
-	text := "Clicka il link seguente per resettare la tua password.\n" + Config.Domain + "/account/password/reset?token=" + token
-
-	smtpAuth := smtp.PlainAuth("", Config.EmailUsername, Config.EmailPassword, "smtp.gmail.com")
-
-	to := []string{email}
-
-	err = smtp.SendMail(Config.EmailServer, smtpAuth, "", to, []byte(text))
-	if err != nil {
-		return "", err
+		return
 	}
 
-	return token, nil
+	subject := "Resetta la tua password"
+	body := "Clicka il seguente link per resettare la tua password:\n" +
+		Config.Domain + "/account/password/reset?token=" + token
+
+	go sendEmail(to, subject, body)
+
+	return
 }
 
 func resetPassword(w http.ResponseWriter, r *http.Request) error {

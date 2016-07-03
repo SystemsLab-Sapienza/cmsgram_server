@@ -67,7 +67,7 @@ func accountVerifyHandler(w http.ResponseWriter, r *http.Request) {
 				log.Printf("handling %q: %v", r.RequestURI, err)
 				return // TODO check
 			}
-			t.Execute(w, "L'indirizzo email è stato verificato. Attendi che l'amministratore attivi l'account.")
+			t.Execute(w, "L'indirizzo email è stato verificato. Attendi che l'amministratore approvi la richiesta di attivazione del tuo account.")
 		}
 	} else {
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
