@@ -69,7 +69,7 @@ func renderUserData(w http.ResponseWriter, r *http.Request, tname string) error 
 		},
 	}
 
-	t, err := template.New(tname).Funcs(funcMap).ParseFiles("pages/" + tname)
+	t, err := template.New(tname).Funcs(funcMap).ParseFiles("templates/" + tname)
 	if err != nil {
 		return ErrGeneric
 	}

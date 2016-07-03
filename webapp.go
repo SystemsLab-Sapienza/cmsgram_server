@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	http.Handle("/assets/", http.FileServer(http.Dir("pages")))
+	http.Handle("/assets/", http.FileServer(http.Dir("templates")))
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/account/delete", accountDeleteHandler)
 	http.HandleFunc("/account/password/reset", resetPasswordHandler)

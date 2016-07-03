@@ -61,7 +61,7 @@ func accountVerifyHandler(w http.ResponseWriter, r *http.Request) {
 		if err := accountActivate(w, r); err != nil {
 			w.Write([]byte(err.Error()))
 		} else {
-			t, err := template.ParseFiles("pages/confirm.html")
+			t, err := template.ParseFiles("templates/confirm.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)

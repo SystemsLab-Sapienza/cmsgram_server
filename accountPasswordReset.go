@@ -36,7 +36,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 
 		// GET request w/o token means the user has requested the form for pwd reset
 		if token == "" {
-			http.ServeFile(w, r, "pages/reset.html")
+			http.ServeFile(w, r, "templates/reset.html")
 		} else { // GET request with token means the user has clicked the link sent by email
 			conn := Pool.Get()
 			defer conn.Close()
@@ -49,7 +49,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			t, err := template.ParseFiles("pages/change.html")
+			t, err := template.ParseFiles("templates/change.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)
@@ -110,7 +110,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			t, err := template.ParseFiles("pages/confirm.html")
+			t, err := template.ParseFiles("templates/confirm.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)
@@ -167,7 +167,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			t, err := template.ParseFiles("pages/confirm.html")
+			t, err := template.ParseFiles("templates/confirm.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)

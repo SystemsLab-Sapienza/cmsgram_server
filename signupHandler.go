@@ -140,7 +140,7 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		if err := signup(w, r); err != nil {
 			errmsg := err.Error()
-			t, err := template.ParseFiles("pages/signup.html")
+			t, err := template.ParseFiles("templates/signup.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)
@@ -150,7 +150,7 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		t, err := template.ParseFiles("pages/confirm.html")
+		t, err := template.ParseFiles("templates/confirm.html")
 		if err != nil {
 			http.Error(w, "Internal error", http.StatusInternalServerError)
 			log.Printf("handling %q: %v", r.RequestURI, err)
@@ -158,7 +158,7 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		t.Execute(w, "E' stato inviato un link per verificare l'indirizzo email fornito.")
 	} else if r.Method == "GET" {
-		t, err := template.ParseFiles("pages/signup.html")
+		t, err := template.ParseFiles("templates/signup.html")
 		if err != nil {
 			http.Error(w, "Internal error", http.StatusInternalServerError)
 			return

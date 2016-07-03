@@ -60,7 +60,7 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 
-	t, err := template.ParseFiles("pages/confirm.html")
+	t, err := template.ParseFiles("templates/confirm.html")
 	if err != nil {
 		http.Error(w, "Internal error", http.StatusInternalServerError)
 		log.Printf("handling %q: %v", r.RequestURI, err)

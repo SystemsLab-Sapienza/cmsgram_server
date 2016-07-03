@@ -34,7 +34,7 @@ func serveAdminPanel(w http.ResponseWriter, r *http.Request) error {
 		userlist = append(userlist, user{u, email})
 	}
 
-	t, err := template.ParseFiles("pages/admin.html")
+	t, err := template.ParseFiles("templates/admin.html")
 	if err != nil {
 		return err
 	}
@@ -53,7 +53,7 @@ func serveHome(w http.ResponseWriter, r *http.Request, user string) error {
 		return ErrDB
 	}
 
-	t, err := template.ParseFiles("pages/home.html")
+	t, err := template.ParseFiles("templates/home.html")
 	if err != nil {
 		return err
 	}
@@ -99,7 +99,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else {
-			t, err := template.ParseFiles("pages/signin.html")
+			t, err := template.ParseFiles("templates/signin.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)

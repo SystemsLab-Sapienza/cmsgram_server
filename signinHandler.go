@@ -83,7 +83,7 @@ func signinHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		if err := signin(w, r); err != nil {
 			errmsg := err.Error()
-			t, err := template.ParseFiles("pages/signin.html")
+			t, err := template.ParseFiles("templates/signin.html")
 			if err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)
