@@ -46,22 +46,16 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 					user.EmailAltre = append(user.EmailAltre, e)
 				}
 			}
-			break
 		case "fname":
 			user.Nome = v[0]
-			break
 		case "lname":
 			user.Cognome = v[0]
-			break
 		case "type":
 			user.Tipo = v[0]
-			break
 		case "address":
 			user.Indirizzo = v[0]
-			break
 		case "phone":
 			user.Telefono = v[0]
-			break
 		case "url":
 			user.Sito = v[0]
 			for _, s := range v[1:] {
@@ -69,10 +63,8 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 					user.SitoAltri = append(user.SitoAltri, s)
 				}
 			}
-			break
 		default:
 			log.Println("postData: Form key not valid:", k)
-			break
 		}
 	}
 
