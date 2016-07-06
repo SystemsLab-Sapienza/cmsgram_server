@@ -47,10 +47,20 @@ func serveHome(w http.ResponseWriter, r *http.Request, user string) error {
 	conn := Pool.Get()
 	defer conn.Close()
 
-	// Fetch the last ten sent messages
-	messages, err := redis.Strings(conn.Do("LRANGE", "webapp:messages:"+user, 0, 9))
+	var messages = make([]string, 0)
+
+	// Fetch the ids of last ten messages
+	ids, err := redis.Strings(conn.Do("LRANGE", "webapp:users:messages:"+user, 0, 9))
 	if err != nil {
 		return ErrDB
+	}
+
+	for _, i := range ids {
+		msg, err := redis.String(conn.Do("HGET", "webapp:messages:"+i, "content"))
+		if err != nil {
+			return err
+		}
+		messages = append(messages, msg)
 	}
 
 	t, err := template.ParseFiles("templates/home.html")

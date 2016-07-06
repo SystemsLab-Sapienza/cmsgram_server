@@ -43,6 +43,12 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 
+	// Get the messages sent by the user
+	messages, err := redis.Strings(conn.Do("LRANGE", "webapp:users:messages:"+uid, 0, -1))
+	if err != nil && err != redis.ErrNil {
+		return ErrDB
+	}
+
 	conn.Send("MULTI")
 	conn.Send("HDEL", "webapp:users", user.Username)
 	conn.Send("SREM", "webapp:users:email", user.Email)
@@ -51,7 +57,11 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 	conn.Send("DEL", "webapp:users:data:"+uid)
 	conn.Send("DEL", "webapp:users:data:email:"+uid)
 	conn.Send("DEL", "webapp:users:data:url:"+uid)
-	conn.Send("DEL", "webapp:messages:"+uid)
+	// TODO What happens when messages is nil?
+	for _, m := range messages {
+		conn.Send("DEL", "webapp:messages:"+m)
+	}
+	conn.Send("DEL", "webapp:users:messages:"+uid)
 	if lname != "" {
 		conn.Send("SREM", "webapp:users:info:"+strings.ToLower(lname), uid)
 	}

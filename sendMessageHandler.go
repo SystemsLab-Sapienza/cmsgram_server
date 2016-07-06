@@ -3,7 +3,12 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
+	"strconv"
+	"time"
+
+	"github.com/garyburd/redigo/redis"
 )
 
 func sendMessage(w http.ResponseWriter, r *http.Request) error {
@@ -22,18 +27,38 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 			return ErrFieldEmpty
 		}
 
+		// Get the current timestamp
+		now := time.Now().Unix()
+
 		conn := Pool.Get()
 		defer conn.Close()
 
-		// Push the message to the user's message queue
-		_, err = conn.Do("LPUSH", "webapp:messages:"+user, msg)
+		// Get the new message id
+		c, err := redis.Int64(conn.Do("INCR", "webapp:messages:counter"))
 		if err != nil {
+			log.Println("sendMessage():", err)
+			return ErrDB
+		}
+
+		newsid := strconv.FormatInt(c, 10)
+
+		// Save the message on the database
+		_, err = conn.Do("HMSET", "webapp:messages:"+newsid, "user_id", user, "timestamp", now, "content", msg)
+		if err != nil {
+			log.Println("sendMessage():", err)
+			return ErrDB
+		}
+
+		// Push the message id to the user's message queue
+		_, err = conn.Do("LPUSH", "webapp:users:messages:"+user, newsid)
+		if err != nil {
+			log.Println("sendMessage():", err)
 			return ErrDB
 		}
 
 		// Create the JSON payload
 		payload.Key = "message"
-		payload.Value = msg
+		payload.Value = newsid
 		data, err := json.Marshal(&payload)
 		if err != nil {
 			return ErrGeneric
