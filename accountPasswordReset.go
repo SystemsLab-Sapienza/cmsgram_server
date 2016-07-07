@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"regexp"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
@@ -59,6 +60,13 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 
 			if username == "" || email == "" {
 				return ErrFieldEmpty
+			}
+
+			// TODO get pattern from config file
+			// Email address not valid
+			ok, err := regexp.Match(`^.+@(.+)?uniroma1.it$`, []byte(email))
+			if !ok || err != nil {
+				return ErrBadEmail
 			}
 
 			conn := Pool.Get()
