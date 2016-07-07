@@ -99,8 +99,8 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			// TODO use a string
-			templates.ExecuteTemplate(w, "confirm.html", "Il link di reset è stato inviato all'indirizzo email fornito.")
+			msg := "Il link di reset è stato inviato all'indirizzo email fornito."
+			templates.ExecuteTemplate(w, "confirm.html", msg)
 		} else { // Post request w/ token means the user has submitted the change password form
 			var (
 				pwd1 = r.PostFormValue("password1")
@@ -151,8 +151,8 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			// TODO use a string
-			templates.ExecuteTemplate(w, "confirm.html", "La password è stata modificata.")
+			msg := "La password è stata modificata."
+			templates.ExecuteTemplate(w, "confirm.html", msg)
 		}
 	} else {
 		http.Error(w, "GET/POST ONLY", http.StatusMethodNotAllowed)

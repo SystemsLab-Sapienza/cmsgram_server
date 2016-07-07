@@ -137,8 +137,8 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// TODO use a string
-		templates.ExecuteTemplate(w, "confirm.html", "E' stato inviato un link per verificare l'indirizzo email fornito.")
+		msg := "E' stato inviato un link per verificare l'indirizzo email fornito."
+		templates.ExecuteTemplate(w, "confirm.html", msg)
 	} else if r.Method == "GET" {
 		templates.ExecuteTemplate(w, "signup.html", nil)
 	} else {

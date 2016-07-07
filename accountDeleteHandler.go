@@ -69,8 +69,8 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 
-	// TODO use a string
-	templates.ExecuteTemplate(w, "confirm.html", "L'account è stato eliminato.")
+	msg := "L'account è stato eliminato."
+	templates.ExecuteTemplate(w, "confirm.html", msg)
 
 	return nil
 }

@@ -59,8 +59,8 @@ func accountVerifyHandler(w http.ResponseWriter, r *http.Request) {
 		if err := accountActivate(w, r); err != nil {
 			w.Write([]byte(err.Error()))
 		} else {
-			// TODO use a string
-			templates.ExecuteTemplate(w, "confirm.html", "L'indirizzo email è stato verificato. Attendi che l'amministratore approvi la richiesta di attivazione del tuo account.")
+			msg := "L'indirizzo email è stato verificato. Attendi che l'amministratore approvi la richiesta di attivazione del tuo account."
+			templates.ExecuteTemplate(w, "confirm.html", msg)
 		}
 	} else {
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
