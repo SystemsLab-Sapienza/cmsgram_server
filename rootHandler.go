@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 
@@ -34,11 +33,7 @@ func serveAdminPanel(w http.ResponseWriter, r *http.Request) error {
 		userlist = append(userlist, user{u, email})
 	}
 
-	t, err := template.ParseFiles("templates/admin.html")
-	if err != nil {
-		return err
-	}
-	t.Execute(w, userlist)
+	templates.ExecuteTemplate(w, "admin.html", userlist)
 
 	return nil
 }
@@ -63,11 +58,7 @@ func serveHome(w http.ResponseWriter, r *http.Request, user string) error {
 		messages = append(messages, msg)
 	}
 
-	t, err := template.ParseFiles("templates/home.html")
-	if err != nil {
-		return err
-	}
-	t.Execute(w, messages)
+	templates.ExecuteTemplate(w, "home.html", messages)
 
 	return nil
 }
@@ -109,12 +100,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else {
-			t, err := template.ParseFiles("templates/signin.html")
-			if err != nil {
-				http.Error(w, "Internal error", http.StatusInternalServerError)
-				log.Printf("handling %q: %v", r.RequestURI, err)
-			}
-			t.Execute(w, nil)
+			templates.ExecuteTemplate(w, "signin.html", nil)
 		}
 	} else {
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)

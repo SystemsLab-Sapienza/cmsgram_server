@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"net/http"
 
 	"github.com/garyburd/redigo/redis"
@@ -57,24 +56,7 @@ func renderUserData(w http.ResponseWriter, r *http.Request, tname string) error 
 		return ErrDB
 	}
 
-	funcMap := template.FuncMap{
-		"isLast": func(i, n int) bool {
-			if i == n-1 {
-				return true
-			}
-			return false
-		},
-		"strcmp": func(a, b string) bool {
-			return a == b
-		},
-	}
-
-	t, err := template.New(tname).Funcs(funcMap).ParseFiles("templates/" + tname)
-	if err != nil {
-		return ErrGeneric
-	}
-
-	if err = t.Execute(w, user); err != nil {
+	if err = templates.ExecuteTemplate(w, tname, user); err != nil {
 		return ErrGeneric
 	}
 

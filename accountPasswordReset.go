@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 	"time"
@@ -45,13 +44,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			t, err := template.ParseFiles("templates/change.html")
-			if err != nil {
-				http.Error(w, "Internal error", http.StatusInternalServerError)
-				log.Printf("handling %q: %v", r.RequestURI, err)
-				return err
-			}
-			t.Execute(w, token)
+			templates.ExecuteTemplate(w, "change.html", token)
 		}
 	} else if r.Method == "POST" {
 		const delay = 20
@@ -106,13 +99,8 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			t, err := template.ParseFiles("templates/confirm.html")
-			if err != nil {
-				http.Error(w, "Internal error", http.StatusInternalServerError)
-				log.Printf("handling %q: %v", r.RequestURI, err)
-				return err
-			}
-			t.Execute(w, "Il link di reset è stato inviato all'indirizzo email fornito.")
+			// TODO use a string
+			templates.ExecuteTemplate(w, "confirm.html", "Il link di reset è stato inviato all'indirizzo email fornito.")
 		} else { // Post request w/ token means the user has submitted the change password form
 			var (
 				pwd1 = r.PostFormValue("password1")
@@ -163,13 +151,8 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrDB
 			}
 
-			t, err := template.ParseFiles("templates/confirm.html")
-			if err != nil {
-				http.Error(w, "Internal error", http.StatusInternalServerError)
-				log.Printf("handling %q: %v", r.RequestURI, err)
-				return err
-			}
-			t.Execute(w, "La password è stata modificata.")
+			// TODO use a string
+			templates.ExecuteTemplate(w, "confirm.html", "La password è stata modificata.")
 		}
 	} else {
 		http.Error(w, "GET/POST ONLY", http.StatusMethodNotAllowed)

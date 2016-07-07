@@ -1,6 +1,7 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -11,7 +12,8 @@ import (
 
 // Global variables
 var (
-	Pool *redis.Pool
+	Pool      *redis.Pool
+	templates *template.Template
 )
 
 func init() {
@@ -55,6 +57,32 @@ func main() {
 	if err != nil {
 		log.Fatal("main: os.Chdir:", err)
 	}
+
+	// Define templates functions
+	funcMap := template.FuncMap{
+		"isLast": func(i, n int) bool {
+			if i == n-1 {
+				return true
+			}
+			return false
+		},
+		"strcmp": func(a, b string) bool {
+			return a == b
+		},
+	}
+
+	// Parse templates
+	templates = template.Must(template.New("templates").Funcs(funcMap).ParseFiles(
+		"templates/admin.html",
+		"templates/change.html",
+		"templates/confirm.html",
+		"templates/edit.html",
+		"templates/email.tpl",
+		"templates/home.html",
+		// "templates/reset.html",
+		"templates/signup.html",
+		"templates/signin.html",
+		"templates/view.html"))
 
 	err = http.ListenAndServe(":8080", nil)
 	if err != nil {

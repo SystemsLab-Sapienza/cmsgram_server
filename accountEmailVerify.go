@@ -1,8 +1,6 @@
 package main
 
 import (
-	"html/template"
-	"log"
 	"net/http"
 
 	"github.com/garyburd/redigo/redis"
@@ -61,13 +59,8 @@ func accountVerifyHandler(w http.ResponseWriter, r *http.Request) {
 		if err := accountActivate(w, r); err != nil {
 			w.Write([]byte(err.Error()))
 		} else {
-			t, err := template.ParseFiles("templates/confirm.html")
-			if err != nil {
-				http.Error(w, "Internal error", http.StatusInternalServerError)
-				log.Printf("handling %q: %v", r.RequestURI, err)
-				return // TODO check
-			}
-			t.Execute(w, "L'indirizzo email è stato verificato. Attendi che l'amministratore approvi la richiesta di attivazione del tuo account.")
+			// TODO use a string
+			templates.ExecuteTemplate(w, "confirm.html", "L'indirizzo email è stato verificato. Attendi che l'amministratore approvi la richiesta di attivazione del tuo account.")
 		}
 	} else {
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)

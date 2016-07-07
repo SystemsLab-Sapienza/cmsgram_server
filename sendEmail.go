@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"net/smtp"
-	"text/template"
 )
 
 func sendEmail(to, subject, body string) (err error) {
@@ -16,12 +15,7 @@ func sendEmail(to, subject, body string) (err error) {
 		}{to, subject, body}
 	)
 
-	t, err := template.ParseFiles("templates/email.tpl")
-	if err != nil {
-		return
-	}
-
-	err = t.Execute(&b, data)
+	err = templates.ExecuteTemplate(&b, "email.tpl", data)
 	if err != nil {
 		return
 	}

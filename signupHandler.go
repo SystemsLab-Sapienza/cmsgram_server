@@ -1,8 +1,6 @@
 package main
 
 import (
-	"html/template"
-	"log"
 	"net/http"
 	"regexp"
 	"time"
@@ -135,30 +133,14 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		if err := signup(w, r); err != nil {
 			errmsg := err.Error()
-			t, err := template.ParseFiles("templates/signup.html")
-			if err != nil {
-				http.Error(w, "Internal error", http.StatusInternalServerError)
-				log.Printf("handling %q: %v", r.RequestURI, err)
-				return
-			}
-			t.Execute(w, errmsg)
+			templates.ExecuteTemplate(w, "signup.html", errmsg)
 			return
 		}
 
-		t, err := template.ParseFiles("templates/confirm.html")
-		if err != nil {
-			http.Error(w, "Internal error", http.StatusInternalServerError)
-			log.Printf("handling %q: %v", r.RequestURI, err)
-			return // TODO check
-		}
-		t.Execute(w, "E' stato inviato un link per verificare l'indirizzo email fornito.")
+		// TODO use a string
+		templates.ExecuteTemplate(w, "confirm.html", "E' stato inviato un link per verificare l'indirizzo email fornito.")
 	} else if r.Method == "GET" {
-		t, err := template.ParseFiles("templates/signup.html")
-		if err != nil {
-			http.Error(w, "Internal error", http.StatusInternalServerError)
-			return
-		}
-		t.Execute(w, nil)
+		templates.ExecuteTemplate(w, "signup.html", nil)
 	} else {
 		http.Error(w, "GET/POST ONLY", http.StatusMethodNotAllowed)
 	}
