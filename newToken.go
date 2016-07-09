@@ -16,15 +16,20 @@ func newUniqueToken(len int, base string) (string, error) {
 	if err != nil && err != redis.ErrNil {
 		return "", ErrDB
 	}
-	for res != "" {
+
+	for i := 0; i < 1e3; i++ {
 		token = auth.NewBase36(len)
 		res, err = redis.String(conn.Do("GET", base+token))
 		if err != nil && err != redis.ErrNil {
 			return "", ErrDB
 		}
+
+		if res == "" {
+			return token, nil
+		}
 	}
 
-	return token, nil
+	return "", ErrGeneric
 }
 
 func newActivationToken(len int) (string, error) {
