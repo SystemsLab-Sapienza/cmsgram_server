@@ -6,15 +6,15 @@ import (
 )
 
 func signout(w http.ResponseWriter, r *http.Request) error {
-	conn := Pool.Get()
-	defer conn.Close()
-
 	logged, uid, err := isLoggedIn(w, r)
 	if err != nil {
 		return err
 	}
 	if logged {
 		cookie, _ := r.Cookie("auth")
+
+		conn := Pool.Get()
+		defer conn.Close()
 
 		_, err := conn.Do("HSET", "webapp:users:"+uid, "auth", "")
 		if err != nil {
@@ -37,12 +37,13 @@ func signout(w http.ResponseWriter, r *http.Request) error {
 func signoutHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "GET" {
+	switch r.Method {
+	case "GET":
 		if err := signout(w, r); err != nil {
 			return
 		}
 		http.Redirect(w, r, "/", http.StatusSeeOther)
-	} else {
+	default:
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
 	}
 }

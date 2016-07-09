@@ -128,20 +128,21 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 func dataEditHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "GET" {
+	switch r.Method {
+	case "GET":
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 		w.Header().Set("Pragma", "no-cache")
 		w.Header().Set("Expires", "0")
 		w.Header().Set("Content-Type", "text/html")
 
 		dataEditGet(w, r)
-	} else if r.Method == "POST" {
+	case "POST":
 		if err := dataEditPost(w, r); err != nil {
 			http.Error(w, "Internal error", http.StatusInternalServerError)
 			log.Printf("handling %q: %v", r.RequestURI, err)
 			return
 		}
-	} else {
+	default:
 		http.Error(w, "GET/POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

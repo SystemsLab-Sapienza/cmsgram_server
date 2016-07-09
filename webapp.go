@@ -53,8 +53,8 @@ func main() {
 		return
 	}
 
-	err := os.Chdir(Config.WorkingDirectory)
-	if err != nil {
+	// Change the working directory
+	if err := os.Chdir(Config.WorkingDirectory); err != nil {
 		log.Fatal("main: os.Chdir:", err)
 	}
 
@@ -71,7 +71,7 @@ func main() {
 		},
 	}
 
-	// Parse templates
+	// Parse the templates
 	templates = template.Must(template.New("templates").Funcs(funcMap).ParseFiles(
 		"templates/admin.html",
 		"templates/change.html",
@@ -84,8 +84,6 @@ func main() {
 		"templates/signin.html",
 		"templates/view.html"))
 
-	err = http.ListenAndServe(":8080", nil)
-	if err != nil {
-		log.Fatal("main: http.ListenAndServe:", err)
-	}
+	// Start the server TODO get the port from the config file
+	log.Fatal("main: http.ListenAndServe:", http.ListenAndServe(":8080", nil))
 }

@@ -21,9 +21,6 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	conn := Pool.Get()
-	defer conn.Close()
-
 	admin, err := isUserAdmin(uid)
 	if err != nil {
 		return err
@@ -35,6 +32,9 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 	if username == "" {
 		return ErrFieldEmpty
 	}
+
+	conn := Pool.Get()
+	defer conn.Close()
 
 	// Get user's email address
 	to, err := redis.String(conn.Do("HGET", "webapp:users:pending:"+username, "email"))
@@ -63,13 +63,13 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 func adminDenyHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
 		if err := accountDeny(w, r); err != nil {
-			errmsg := err.Error()
-			log.Println(errmsg)
+			log.Println(err)
 			return
 		}
-	} else {
+	default:
 		http.Error(w, "POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

@@ -14,9 +14,6 @@ func isNameTaken(w http.ResponseWriter, r *http.Request) error {
 		Value string
 	}{}
 
-	conn := Pool.Get()
-	defer conn.Close()
-
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		return ErrGeneric
@@ -32,6 +29,9 @@ func isNameTaken(w http.ResponseWriter, r *http.Request) error {
 	if payload.Key != "username" {
 		return ErrGeneric
 	}
+
+	conn := Pool.Get()
+	defer conn.Close()
 
 	taken, err := redis.Bool(conn.Do("HEXISTS", "webapp:users", payload.Value))
 	if err != nil {
@@ -70,11 +70,12 @@ func isNameTaken(w http.ResponseWriter, r *http.Request) error {
 func isNameTakenHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
 		if err := isNameTaken(w, r); err != nil {
 			return
 		}
-	} else {
+	default:
 		http.Error(w, "POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

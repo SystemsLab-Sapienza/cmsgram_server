@@ -15,9 +15,6 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		Auth     string `redis:"auth"`
 	}{}
 
-	conn := Pool.Get()
-	defer conn.Close()
-
 	logged, uid, err := isLoggedIn(w, r)
 	if err != nil {
 		return ErrGeneric
@@ -26,6 +23,9 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return nil
 	}
+
+	conn := Pool.Get()
+	defer conn.Close()
 
 	data, err := redis.Values(conn.Do("HGETALL", "webapp:users:"+uid))
 	if err != nil {
@@ -48,6 +48,7 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 
+	// Delete all the data associated with the user
 	conn.Send("MULTI")
 	conn.Send("HDEL", "webapp:users", user.Username)
 	conn.Send("SREM", "webapp:users:email", user.Email)
@@ -56,7 +57,6 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 	conn.Send("DEL", "webapp:users:data:"+uid)
 	conn.Send("DEL", "webapp:users:data:email:"+uid)
 	conn.Send("DEL", "webapp:users:data:url:"+uid)
-	// TODO What happens when messages is nil?
 	for _, m := range messages {
 		conn.Send("DEL", "webapp:messages:"+m)
 	}
@@ -78,13 +78,14 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 func accountDeleteHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
 		if err := accountDelete(w, r); err != nil {
 			http.Error(w, "Internal error", http.StatusInternalServerError)
 			log.Printf("handling %q: %v", r.RequestURI, err)
 			return
 		}
-	} else {
+	default:
 		http.Error(w, "POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

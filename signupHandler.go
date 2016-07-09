@@ -124,7 +124,8 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 func signupHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
 		if err := signup(w, r); err != nil {
 			errmsg := err.Error()
 			templates.ExecuteTemplate(w, "signup.html", errmsg)
@@ -133,9 +134,9 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 
 		msg := "E' stato inviato un link per verificare l'indirizzo email fornito."
 		templates.ExecuteTemplate(w, "confirm.html", msg)
-	} else if r.Method == "GET" {
+	case "GET":
 		templates.ExecuteTemplate(w, "signup.html", nil)
-	} else {
+	default:
 		http.Error(w, "GET/POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

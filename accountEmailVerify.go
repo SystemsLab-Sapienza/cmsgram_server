@@ -55,15 +55,15 @@ func accountActivate(w http.ResponseWriter, r *http.Request) error {
 func accountVerifyHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "GET" {
+	switch r.Method {
+	case "GET":
 		if err := accountActivate(w, r); err != nil {
 			w.Write([]byte(err.Error()))
 		} else {
 			msg := "L'indirizzo email è stato verificato. Attendi che l'amministratore approvi la richiesta di attivazione del tuo account."
 			templates.ExecuteTemplate(w, "confirm.html", msg)
 		}
-	} else {
+	default:
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
-		return
 	}
 }

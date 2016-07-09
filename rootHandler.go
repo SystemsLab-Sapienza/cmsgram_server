@@ -70,7 +70,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	if r.Method == "GET" {
+	switch r.Method {
+	case "GET":
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 		w.Header().Set("Pragma", "no-cache")
 		w.Header().Set("Expires", "0")
@@ -102,7 +103,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			templates.ExecuteTemplate(w, "signin.html", nil)
 		}
-	} else {
+	default:
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
 	}
 }

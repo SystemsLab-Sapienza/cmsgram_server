@@ -77,14 +77,15 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 func sendMessageHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
 		if err := sendMessage(w, r); err != nil {
 			w.Header().Set("Content-type", "text/plain")
 			w.Write([]byte(err.Error()))
 			return
 		}
 		http.Redirect(w, r, "/", http.StatusSeeOther)
-	} else {
+	default:
 		http.Error(w, "POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

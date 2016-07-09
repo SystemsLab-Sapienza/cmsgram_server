@@ -19,10 +19,10 @@ var (
 		EmailPassword    string
 		EmailTestAddress string
 
-		RedisDomain      string // = "tcp"
-		RedisAddress     string // = "localhost:6379"
-		RedisMaxIdle     int    // = 3
-		RedisIdleTimeout int    // = 240
+		RedisDomain      string
+		RedisAddress     string
+		RedisMaxIdle     int
+		RedisIdleTimeout int
 
 		WorkingDirectory    string
 		SendMessageEndpoint string

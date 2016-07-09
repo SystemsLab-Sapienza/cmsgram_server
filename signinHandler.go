@@ -76,15 +76,15 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 func signinHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
 		if err := signin(w, r); err != nil {
-			errmsg := err.Error()
-			templates.ExecuteTemplate(w, "signin.html", errmsg)
+			templates.ExecuteTemplate(w, "signin.html", err)
 			return
 		}
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
-	} else {
+	default:
 		http.Error(w, "POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

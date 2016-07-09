@@ -173,8 +173,7 @@ func resetPasswordHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if err := resetPassword(w, r); err != nil {
-		errmsg := err.Error()
-		log.Println(errmsg)
+		log.Println(err)
 		return
 	}
 }

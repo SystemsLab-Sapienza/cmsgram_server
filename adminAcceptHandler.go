@@ -28,9 +28,6 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	conn := Pool.Get()
-	defer conn.Close()
-
 	admin, err := isUserAdmin(uid)
 	if err != nil {
 		return err
@@ -42,6 +39,9 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 	if username == "" {
 		return ErrFieldEmpty
 	}
+
+	conn := Pool.Get()
+	defer conn.Close()
 
 	data, err := redis.Values(conn.Do("HGETALL", "webapp:users:pending:"+username))
 	if err != nil {
@@ -84,13 +84,13 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 func adminAcceptHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "POST" {
+	switch r.Method {
+	case "POST":
 		if err := accountAccept(w, r); err != nil {
-			errmsg := err.Error()
-			log.Println(errmsg)
+			log.Println(err)
 			return
 		}
-	} else {
+	default:
 		http.Error(w, "POST ONLY", http.StatusMethodNotAllowed)
 	}
 }

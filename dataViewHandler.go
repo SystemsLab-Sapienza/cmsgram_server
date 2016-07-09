@@ -12,7 +12,8 @@ func dataView(w http.ResponseWriter, r *http.Request) error {
 func dataViewHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	if r.Method == "GET" {
+	switch r.Method {
+	case "GET":
 		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 		w.Header().Set("Pragma", "no-cache")
 		w.Header().Set("Expires", "0")
@@ -23,7 +24,7 @@ func dataViewHandler(w http.ResponseWriter, r *http.Request) {
 			log.Printf("handling %q: %v", r.RequestURI, err)
 			return
 		}
-	} else {
+	default:
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
 	}
 }
