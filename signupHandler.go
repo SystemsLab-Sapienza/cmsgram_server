@@ -97,12 +97,6 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 		return ErrGeneric
 	}
 
-	if Config.EmailTestAddress != "" {
-		recipient = Config.EmailTestAddress
-	} else {
-		recipient = email
-	}
-
 	// TODO Return a more specific error
 	token, err := sendAuthLink(recipient)
 	if err != nil {
