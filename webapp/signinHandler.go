@@ -28,7 +28,7 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 	conn := Pool.Get()
 	defer conn.Close()
 
-	// Get the user id, if any
+	// Get the user ID, if any
 	uid, err := redis.String(conn.Do("HGET", "webapp:users", user))
 	if err != nil && err != redis.ErrNil {
 		return ErrDB

@@ -49,7 +49,7 @@ func init() {
 
 func main() {
 	// TODO get the config file from the command line
-	if readConfigFile("/Users/marcofelici/go/src/webapp/webapp.conf") != nil {
+	if readConfigFile("/Users/marcofelici/go/src/bitbucket.org/ansijax/rfidlab_telegramdi_backend/webapp.conf") != nil {
 		return
 	}
 

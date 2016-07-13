@@ -10,26 +10,28 @@ func signout(w http.ResponseWriter, r *http.Request) error {
 	if err != nil {
 		return err
 	}
-	if logged {
-		cookie, _ := r.Cookie("auth")
-
-		conn := Pool.Get()
-		defer conn.Close()
-
-		_, err := conn.Do("HSET", "webapp:users:"+uid, "auth", "")
-		if err != nil {
-			return ErrDB
-		}
-
-		_, err = conn.Do("DEL", "webapp:users:auth:session:"+cookie.Value)
-		if err != nil {
-			return ErrDB
-		}
-
-		// Delete cookie
-		newCookie := http.Cookie{Name: "auth", Value: "", MaxAge: -1}
-		http.SetCookie(w, &newCookie)
+	if !logged {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return nil
 	}
+
+	conn := Pool.Get()
+	defer conn.Close()
+
+	_, err = conn.Do("HSET", "webapp:users:"+uid, "auth", "")
+	if err != nil {
+		return ErrDB
+	}
+
+	cookie, _ := r.Cookie("auth")
+	_, err = conn.Do("DEL", "webapp:users:auth:session:"+cookie.Value)
+	if err != nil {
+		return ErrDB
+	}
+
+	// Delete cookie
+	newCookie := http.Cookie{Name: "auth", Value: "", MaxAge: -1}
+	http.SetCookie(w, &newCookie)
 
 	return nil
 }

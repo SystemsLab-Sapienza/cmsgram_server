@@ -81,27 +81,28 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return
 		}
-		if logged {
-			admin, err := isUserAdmin(user)
-			if err != nil {
+		if !logged {
+			templates.ExecuteTemplate(w, "signin.html", nil)
+			return
+		}
+
+		admin, err := isUserAdmin(user)
+		if err != nil {
+			http.Error(w, "Internal error", http.StatusInternalServerError)
+			log.Printf("handling %q: %v", r.RequestURI, err)
+			return
+		}
+
+		if admin {
+			if err := serveAdminPanel(w, r); err != nil {
 				http.Error(w, "Internal error", http.StatusInternalServerError)
 				log.Printf("handling %q: %v", r.RequestURI, err)
-				return
-			}
-
-			if admin {
-				if err := serveAdminPanel(w, r); err != nil {
-					http.Error(w, "Internal error", http.StatusInternalServerError)
-					log.Printf("handling %q: %v", r.RequestURI, err)
-				}
-			} else {
-				if err := serveHome(w, r, user); err != nil {
-					http.Error(w, "Internal error", http.StatusInternalServerError)
-					log.Printf("handling %q: %v", r.RequestURI, err)
-				}
 			}
 		} else {
-			templates.ExecuteTemplate(w, "signin.html", nil)
+			if err := serveHome(w, r, user); err != nil {
+				http.Error(w, "Internal error", http.StatusInternalServerError)
+				log.Printf("handling %q: %v", r.RequestURI, err)
+			}
 		}
 	default:
 		http.Error(w, "GET ONLY", http.StatusMethodNotAllowed)
