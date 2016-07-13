@@ -15,8 +15,8 @@ func sendEmail(to, subject, body string) (err error) {
 		}{to, subject, body}
 	)
 
-	if Config.EmailTestAddress != "" {
-		data.Recipient = Config.EmailTestAddress
+	if config.EmailTestAddress != "" {
+		data.Recipient = config.EmailTestAddress
 	}
 
 	err = templates.ExecuteTemplate(&b, "email.tpl", data)
@@ -24,8 +24,8 @@ func sendEmail(to, subject, body string) (err error) {
 		return
 	}
 
-	smtpAuth := smtp.PlainAuth("", Config.EmailUsername, Config.EmailPassword, "smtp.gmail.com")
-	err = smtp.SendMail(Config.EmailServer, smtpAuth, Config.EmailUsername, []string{data.Recipient}, b.Bytes())
+	smtpAuth := smtp.PlainAuth("", config.EmailUsername, config.EmailPassword, "smtp.gmail.com")
+	err = smtp.SendMail(config.EmailServer, smtpAuth, config.EmailUsername, []string{data.Recipient}, b.Bytes())
 	if err != nil {
 		return
 	}

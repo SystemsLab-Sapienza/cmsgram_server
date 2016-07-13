@@ -5,7 +5,7 @@ import (
 )
 
 func isUserAdmin(uid string) (bool, error) {
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	user, err := redis.String(conn.Do("HGET", "webapp:users:"+uid, "username"))

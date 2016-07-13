@@ -24,7 +24,7 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	data, err := redis.Values(conn.Do("HGETALL", "webapp:users:"+uid))

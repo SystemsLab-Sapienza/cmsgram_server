@@ -68,7 +68,7 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 		}
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	// Last name has changed

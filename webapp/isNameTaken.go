@@ -30,7 +30,7 @@ func isNameTaken(w http.ResponseWriter, r *http.Request) error {
 		return ErrGeneric
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	taken, err := redis.Bool(conn.Do("HEXISTS", "webapp:users", payload.Value))

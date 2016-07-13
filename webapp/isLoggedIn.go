@@ -15,7 +15,7 @@ func isLoggedIn(w http.ResponseWriter, r *http.Request) (bool, string, error) {
 		return false, "", nil
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	// Nonexistent session

@@ -19,7 +19,7 @@ func sendResetLink(to string) (token string, err error) {
 
 	subject := "Resetta la tua password"
 	body := "Clicka il seguente link per resettare la tua password:\n" +
-		Config.Domain + "/account/password/reset?token=" + token
+		config.Domain + "/account/password/reset?token=" + token
 
 	go sendEmail(to, subject, body)
 
@@ -34,7 +34,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 		if token == "" {
 			http.ServeFile(w, r, "templates/reset.html")
 		} else { // GET request with token means the user has clicked the link sent by email
-			conn := Pool.Get()
+			conn := pool.Get()
 			defer conn.Close()
 
 			// Check that token is valid
@@ -69,7 +69,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				return ErrBadEmail
 			}
 
-			conn := Pool.Get()
+			conn := pool.Get()
 			defer conn.Close()
 
 			// Get the ID associated with the user
@@ -115,7 +115,7 @@ func resetPassword(w http.ResponseWriter, r *http.Request) error {
 				pwd2 = r.PostFormValue("password2")
 			)
 
-			conn := Pool.Get()
+			conn := pool.Get()
 			defer conn.Close()
 
 			// Check that token is valid

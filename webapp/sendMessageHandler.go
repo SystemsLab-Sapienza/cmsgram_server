@@ -34,7 +34,7 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 	// Get the current timestamp
 	now := time.Now().Unix()
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	// Get the new message ID
@@ -69,7 +69,7 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// Send the payload
-	_, err = http.Post(Config.SendMessageEndpoint, "application/json", bytes.NewReader(data))
+	_, err = http.Post(config.SendMessageEndpoint, "application/json", bytes.NewReader(data))
 	if err != nil {
 		return ErrNoServer
 	}

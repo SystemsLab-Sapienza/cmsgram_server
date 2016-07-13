@@ -12,7 +12,7 @@ import (
 
 // Global variables
 var (
-	Pool      *redis.Pool
+	pool      *redis.Pool
 	templates *template.Template
 )
 
@@ -33,11 +33,11 @@ func init() {
 	http.HandleFunc("/sendMessage", sendMessageHandler)
 
 	// Create a thread-safe connection pool for redis
-	Pool = &redis.Pool{
+	pool = &redis.Pool{
 		MaxIdle:     3,
 		IdleTimeout: 240 * time.Second,
 		Dial: func() (redis.Conn, error) {
-			c, err := redis.Dial(Config.RedisDomain, Config.RedisAddress)
+			c, err := redis.Dial(config.RedisDomain, config.RedisAddress)
 			if err != nil {
 				return nil, err
 			}
@@ -54,7 +54,7 @@ func main() {
 	}
 
 	// Change the working directory
-	if err := os.Chdir(Config.WorkingDirectory); err != nil {
+	if err := os.Chdir(config.WorkingDirectory); err != nil {
 		log.Fatal("main: os.Chdir:", err)
 	}
 

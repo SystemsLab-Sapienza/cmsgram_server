@@ -28,7 +28,7 @@ func renderUserData(w http.ResponseWriter, r *http.Request, tname string) error 
 		return nil
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	user.Email, err = redis.String(conn.Do("HGET", "webapp:users:"+uid, "email"))

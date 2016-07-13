@@ -33,7 +33,7 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 		return ErrFieldEmpty
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	// Get user's email address

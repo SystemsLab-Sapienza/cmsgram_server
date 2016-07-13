@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	Config = struct {
+	config = struct {
 		Domain string
 
 		EmailServer      string
@@ -53,24 +53,24 @@ func readConfigFile(filepath string) error {
 
 		switch record[0] {
 		case "domain":
-			Config.Domain = record[1]
+			config.Domain = record[1]
 		case "redis_domain":
-			Config.RedisDomain = record[1]
+			config.RedisDomain = record[1]
 		case "redis_address":
-			Config.RedisAddress = record[1]
+			config.RedisAddress = record[1]
 		case "redis_max_idle":
 			i, err := strconv.Atoi(record[1])
 			if err != nil {
 				fmt.Printf("redis_max_idle value '%s' not valid. Using default.\n", record[1])
 			} else {
-				Config.RedisMaxIdle = i
+				config.RedisMaxIdle = i
 			}
 		case "redis_idle_timeout":
 			i, err := strconv.Atoi(record[1])
 			if err != nil {
 				fmt.Printf("redis_idle_timeout value '%s' not valid. Using default.\n", record[1])
 			} else {
-				Config.RedisIdleTimeout = i
+				config.RedisIdleTimeout = i
 			}
 		case "email_username":
 			true, err := regexp.Match(`^.+@.+\..{2,}$`, []byte(record[1]))
@@ -81,22 +81,22 @@ func readConfigFile(filepath string) error {
 			if err != nil {
 				return err
 			}
-			Config.EmailUsername = record[1]
+			config.EmailUsername = record[1]
 		case "email_password":
-			Config.EmailPassword = record[1]
+			config.EmailPassword = record[1]
 		case "email_server":
-			Config.EmailServer = record[1]
+			config.EmailServer = record[1]
 		case "email_test_address":
-			Config.EmailTestAddress = record[1]
-			ok, err := regexp.Match(`^.+@.+\..{2,}$`, []byte(Config.EmailTestAddress))
+			config.EmailTestAddress = record[1]
+			ok, err := regexp.Match(`^.+@.+\..{2,}$`, []byte(config.EmailTestAddress))
 			if !ok || err != nil {
-				fmt.Println("The test email address provided isn't valid:", Config.EmailTestAddress)
+				fmt.Println("The test email address provided isn't valid:", config.EmailTestAddress)
 				return nil
 			}
 		case "working_directory":
-			Config.WorkingDirectory = record[1]
+			config.WorkingDirectory = record[1]
 		case "bot_URI":
-			Config.SendMessageEndpoint = record[1]
+			config.SendMessageEndpoint = record[1]
 		default:
 			fmt.Printf("Parameter '%s' in config file not valid. Ignored.\n", record[0])
 		}

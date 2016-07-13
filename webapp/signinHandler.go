@@ -25,7 +25,7 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 		return ErrNoPassword
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	// Get the user ID, if any

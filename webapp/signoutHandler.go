@@ -15,7 +15,7 @@ func signout(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	_, err = conn.Do("HSET", "webapp:users:"+uid, "auth", "")

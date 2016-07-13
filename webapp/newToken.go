@@ -7,7 +7,7 @@ import (
 
 // Generates a new len-character string in base 36 that's checked to be unique in the DB
 func newUniqueToken(len int, base string) (string, error) {
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	token := auth.NewBase36(len)

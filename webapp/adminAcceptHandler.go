@@ -40,7 +40,7 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 		return ErrFieldEmpty
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	data, err := redis.Values(conn.Do("HGETALL", "webapp:users:pending:"+username))
@@ -74,7 +74,7 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 	// Send email update to user
 	subject := "Account attivato"
 	body := "Il tuo account è stato approvato dall'amministratore ed è ora attivo:\n" +
-		Config.Domain
+		config.Domain
 	go sendEmail(userData.Email, subject, body)
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)

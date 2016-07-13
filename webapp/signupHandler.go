@@ -19,7 +19,7 @@ func sendAuthLink(to string) (token string, err error) {
 
 	subject := "Link di verifica"
 	body := "Clicka il seguente link per verificare la tua email:\n" +
-		Config.Domain + "/account/email/verify?token=" + token
+		config.Domain + "/account/email/verify?token=" + token
 
 	go sendEmail(to, subject, body)
 
@@ -53,7 +53,7 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 		return ErrBadEmail
 	}
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	// Email addressed already in use

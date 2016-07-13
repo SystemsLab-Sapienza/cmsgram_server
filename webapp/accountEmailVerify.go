@@ -17,7 +17,7 @@ func accountActivate(w http.ResponseWriter, r *http.Request) error {
 		token = r.FormValue("token")
 	)
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	user, err := redis.Values(conn.Do("HGETALL", "webapp:temp:token:"+token))

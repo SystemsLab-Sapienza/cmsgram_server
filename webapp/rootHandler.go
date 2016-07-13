@@ -14,7 +14,7 @@ func serveAdminPanel(w http.ResponseWriter, r *http.Request) error {
 	}
 	var userlist []user
 
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	// Get the list of usernames waiting to be accepted
@@ -39,7 +39,7 @@ func serveAdminPanel(w http.ResponseWriter, r *http.Request) error {
 }
 
 func serveHome(w http.ResponseWriter, r *http.Request, user string) error {
-	conn := Pool.Get()
+	conn := pool.Get()
 	defer conn.Close()
 
 	var messages = make([]string, 0)
