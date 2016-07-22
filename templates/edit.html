@@ -86,11 +86,14 @@
       </div>
     </form>
     {{- end}}
-    <div class="separator">Elimina account e dati associati</div>
+    <div class="separator">Gestione account</div>
     <div class="form-section">
       <div class="form-field">
         <form action="/account/delete" id="account-delete-form" method="post">
           <button class="btn-red fright" type="submit">Cancella account</button>
+        </form>
+        <form action="/account/password/change" id="account-password-change-form" method="get">
+          <button class="btn-blue fright" type="submit">Cambia password</button>
         </form>
       </div>
     </div>

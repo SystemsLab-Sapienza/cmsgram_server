@@ -21,6 +21,7 @@ func init() {
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/account/delete", accountDeleteHandler)
 	http.HandleFunc("/account/email/verify", accountVerifyHandler)
+	http.HandleFunc("/account/password/change", accountPasswordChangeHandler)
 	http.HandleFunc("/account/password/reset", resetPasswordHandler)
 	http.HandleFunc("/account/signin", signinHandler)
 	http.HandleFunc("/account/signout", signoutHandler)
@@ -79,6 +80,7 @@ func main() {
 		"templates/edit.html",
 		"templates/email.tpl",
 		"templates/home.html",
+		"templates/new.html",
 		// "templates/reset.html",
 		"templates/signup.html",
 		"templates/signin.html",
