@@ -9,13 +9,13 @@
 </head>
 <body>
   <div class="box">
-    <form action="/account/password/reset" id="auth-change-password-form" method="post">
+    <form action="/account/password/reset" id="account-password-reset-form" method="post">
       <input type="hidden" name="token" value="{{.}}">
       <div class="form-field">
-        <input type="password" class="text-input text-input-wide" autocapitalize="off" name="password1" placeholder="Nuova password">
+        <input type="password" class="text-input text-input-wide" name="password1" placeholder="Nuova password">
       </div>
       <div class="form-field">
-        <input type="password" class="text-input text-input-wide" autocapitalize="off" name="password2" placeholder="Conferma password">
+        <input type="password" class="text-input text-input-wide" name="password2" placeholder="Conferma password">
       </div>
       <div class="form-field">
         <button class="btn-blue" type="submit">Cambia password</button>

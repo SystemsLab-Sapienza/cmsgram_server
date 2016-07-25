@@ -21,11 +21,11 @@
     <form action="/data/edit" id="data-view-form" method="get">
       <div class="form-section" id="email-info">
         <div class="form-field">
-          <input type="text" class="text-input" placeholder="Email" name="email" value="{{.Email}}" disabled>
+          <input type="email" class="text-input" placeholder="Email" name="email" value="{{.Email}}" disabled>
         </div>
         {{- range .EmailAltre}}
         <div class="form-field">
-          <input type="text" class="text-input" placeholder="Altra email" name="email" value="{{.}}" disabled>
+          <input type="email" class="text-input" placeholder="Altra email" name="email" value="{{.}}" disabled>
         </div>
         {{- end}}
       </div>
@@ -50,14 +50,14 @@
       <div class="form-section" id="info-address">
         <div class="form-field">
           <input type="text" class="text-input" placeholder="Indirizzo" name="address" value="{{.Indirizzo}}" disabled>
-          <input type="text" class="text-input fright" placeholder="Telefono" name="phone" value="{{.Telefono}}" disabled>
+          <input type="tel" class="text-input fright" placeholder="Telefono" name="phone" value="{{.Telefono}}" disabled>
         </div>
         <div class="form-field">
-          <input type="text" class="text-input" placeholder="Sito" name="url" value="{{.Sito}}" disabled>
+          <input type="url" class="text-input" placeholder="Sito" name="url" value="{{.Sito}}" disabled>
         </div>
         {{- range .SitoAltri}}
         <div class="form-field">
-          <input type="text" class="text-input" placeholder="Altro sito" name="url" value="{{.}}" disabled>
+          <input type="url" class="text-input" placeholder="Altro sito" name="url" value="{{.}}" disabled>
         </div>
         {{- end}}
       </div>
