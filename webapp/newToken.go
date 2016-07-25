@@ -2,6 +2,7 @@ package main
 
 import (
 	"bitbucket.org/ansijax/rfidlab_telegramdi_backend/auth"
+
 	"github.com/garyburd/redigo/redis"
 )
 

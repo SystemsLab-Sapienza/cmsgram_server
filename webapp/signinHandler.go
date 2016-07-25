@@ -77,6 +77,8 @@ func signinHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	switch r.Method {
+	case "GET":
+		templates.ExecuteTemplate(w, "signin.html", nil)
 	case "POST":
 		if err := signin(w, r); err != nil {
 			templates.ExecuteTemplate(w, "signin.html", err)

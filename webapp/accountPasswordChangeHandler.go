@@ -4,9 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/garyburd/redigo/redis"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func accountPasswordChangeGET(w http.ResponseWriter, r *http.Request) error {
