@@ -32,7 +32,17 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 	uid, err := redis.String(conn.Do("HGET", "webapp:users", user))
 	if err != nil && err != redis.ErrNil {
 		return ErrDB
-	} else if uid == "" {
+	}
+
+	// Check if username is actually an email address
+	if uid == "" {
+		uid, err = redis.String(conn.Do("HGET", "webapp:users:email", user))
+		if err != nil && err != redis.ErrNil {
+			return ErrDB
+		}
+	}
+
+	if uid == "" {
 		return ErrWrongCredentials
 	}
 
