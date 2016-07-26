@@ -31,7 +31,7 @@ func init() {
 	http.HandleFunc("/data/edit", dataEditHandler)
 	http.HandleFunc("/data/view", dataViewHandler)
 	http.HandleFunc("/isNameTaken", isNameTakenHandler)
-	http.HandleFunc("/sendMessage", sendMessageHandler)
+	http.HandleFunc("/message/send", messageSendHandler)
 
 	// Create a thread-safe connection pool for redis
 	pool = &redis.Pool{

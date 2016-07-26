@@ -11,7 +11,7 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
-func sendMessage(w http.ResponseWriter, r *http.Request) error {
+func messageSend(w http.ResponseWriter, r *http.Request) error {
 	var payload = struct {
 		Key   string
 		Value string
@@ -40,7 +40,7 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 	// Get the new message ID
 	c, err := redis.Int64(conn.Do("INCR", "webapp:messages:counter"))
 	if err != nil {
-		log.Println("sendMessage():", err)
+		log.Println("messageSend():", err)
 		return ErrDB
 	}
 
@@ -49,14 +49,14 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 	// Save the message on the database
 	_, err = conn.Do("HMSET", "webapp:messages:"+newsid, "user_id", user, "timestamp", now, "content", msg)
 	if err != nil {
-		log.Println("sendMessage():", err)
+		log.Println("messageSend():", err)
 		return ErrDB
 	}
 
 	// Push the message ID to the user's message queue
 	_, err = conn.Do("LPUSH", "webapp:users:messages:"+user, newsid)
 	if err != nil {
-		log.Println("sendMessage():", err)
+		log.Println("messageSend():", err)
 		return ErrDB
 	}
 
@@ -69,7 +69,7 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// Send the payload
-	_, err = http.Post(config.SendMessageEndpoint, "application/json", bytes.NewReader(data))
+	_, err = http.Post(config.MessageSendEndpoint, "application/json", bytes.NewReader(data))
 	if err != nil {
 		return ErrNoServer
 	}
@@ -77,12 +77,12 @@ func sendMessage(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-func sendMessageHandler(w http.ResponseWriter, r *http.Request) {
+func messageSendHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	switch r.Method {
 	case "POST":
-		if err := sendMessage(w, r); err != nil {
+		if err := messageSend(w, r); err != nil {
 			w.Header().Set("Content-type", "text/plain")
 			w.Write([]byte(err.Error()))
 			return
