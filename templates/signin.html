@@ -14,14 +14,15 @@
         <input type="text" class="text-input text-input-wide" autocapitalize="off" name="username" placeholder="Nome utente">
       </div>
       <div class="form-field">
-        <input type="password" class="text-input text-input-wide" name="password" placeholder="Password">
-      </div>
-      <div class="form-field">
-        <input type="checkbox" name="rememberme">
-        <label for="rememberme">Ricordami</label>
-      </div>
-      <div class="form-field">
+        <input type="password" class="text-input" name="password" placeholder="Password">
         <button class="btn-green" type="submit">Entra</button>
+      </div>
+      <div class="form-field">
+        <input type="checkbox" name="rememberme" checked="checked">
+        <label for="rememberme">Ricordami</label>
+        <span style="font-size: 13px;">·</span>
+        <a href="/account/password/reset" class="forgot" style="font-size: 13px;
+    font-family: sans-serif">Password dimenticata?</a>
       </div>
     </form>
     {{- if .}}
