@@ -63,7 +63,7 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 
 	conn.Send("MULTI")
 	conn.Send("HSET", "webapp:users", userData.Username, user)
-	conn.Send("SADD", "webapp:users:email", userData.Email)
+	conn.Send("HSET", "webapp:users:email", userData.Email, strconv.Itoa(user))
 	conn.Send("LREM", "webapp:users:pending", 0, userData.Username)
 	conn.Send("RENAME", "webapp:users:pending:"+username, "webapp:users:"+strconv.Itoa(user))
 	_, err = conn.Do("EXEC")

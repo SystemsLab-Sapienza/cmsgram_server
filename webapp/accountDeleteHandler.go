@@ -51,7 +51,7 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 	// Delete all the data associated with the user
 	conn.Send("MULTI")
 	conn.Send("HDEL", "webapp:users", user.Username)
-	conn.Send("SREM", "webapp:users:email", user.Email)
+	conn.Send("HDEL", "webapp:users:email", user.Email)
 	conn.Send("DEL", "webapp:users:auth:session:"+user.Auth)
 	conn.Send("DEL", "webapp:users:"+uid)
 	conn.Send("DEL", "webapp:users:data:"+uid)

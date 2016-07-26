@@ -57,7 +57,7 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 	defer conn.Close()
 
 	// Email addressed already in use
-	taken, err := redis.Bool(conn.Do("SISMEMBER", "webapp:users:email", email))
+	taken, err := redis.Bool(conn.Do("HEXISTS", "webapp:users:email", email))
 	if err != nil {
 		return ErrDB
 	}
