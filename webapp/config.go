@@ -12,8 +12,6 @@ import (
 
 var (
 	config = struct {
-		Domain string
-
 		EmailServer      string
 		EmailUsername    string
 		EmailPassword    string
@@ -24,15 +22,27 @@ var (
 		RedisMaxIdle     int
 		RedisIdleTimeout int
 
-		WorkingDirectory    string
+		Domain              string
 		MessageSendEndpoint string
+		WorkingDirectory    string
 	}{}
 )
+
+// Set the default configuration
+func init() {
+	config.RedisDomain = "tcp"
+	config.RedisAddress = "localhost:6379"
+	config.RedisMaxIdle = 3
+	config.RedisIdleTimeout = 240
+
+	config.Domain = "http://localhost:8080"
+	config.WorkingDirectory = "/usr/local/bin"
+}
 
 func readConfigFile(filepath string) error {
 	f, err := os.Open(filepath)
 	if err != nil {
-		log.Fatal("main: os.Open:", err) // TODO handle file not found
+		log.Fatal(err)
 	}
 
 	r := csv.NewReader(f)
@@ -48,55 +58,58 @@ func readConfigFile(filepath string) error {
 			break
 		}
 		if err != nil {
-			log.Fatal("main:", err)
+			log.Fatal("readConfigFile():", err)
 		}
 
+		value := record[1]
 		switch record[0] {
 		case "domain":
-			config.Domain = record[1]
+			config.Domain = value
 		case "redis_domain":
-			config.RedisDomain = record[1]
+			config.RedisDomain = value
 		case "redis_address":
-			config.RedisAddress = record[1]
+			config.RedisAddress = value
 		case "redis_max_idle":
-			i, err := strconv.Atoi(record[1])
+			i, err := strconv.Atoi(value)
 			if err != nil {
-				fmt.Printf("redis_max_idle value '%s' not valid. Using default.\n", record[1])
-			} else {
-				config.RedisMaxIdle = i
+				fmt.Printf("redis_max_idle value '%s' not valid. Using default.\n", value)
 			}
+
+			config.RedisMaxIdle = i
 		case "redis_idle_timeout":
-			i, err := strconv.Atoi(record[1])
+			i, err := strconv.Atoi(value)
 			if err != nil {
-				fmt.Printf("redis_idle_timeout value '%s' not valid. Using default.\n", record[1])
-			} else {
-				config.RedisIdleTimeout = i
+				fmt.Printf("redis_idle_timeout value '%s' not valid. Using default.\n", value)
 			}
+
+			config.RedisIdleTimeout = i
 		case "email_username":
-			true, err := regexp.Match(`^.+@.+\..{2,}$`, []byte(record[1]))
+			true, err := regexp.Match(`^.+@.+\..{2,}$`, []byte(value))
 			if !true {
-				fmt.Println("The email", record[1], "is not valid.")
+				fmt.Println("The email", value, "is not valid.")
 				return nil
 			}
 			if err != nil {
 				return err
 			}
-			config.EmailUsername = record[1]
+
+			config.EmailUsername = value
 		case "email_password":
-			config.EmailPassword = record[1]
+			config.EmailPassword = value
 		case "email_server":
-			config.EmailServer = record[1]
+			config.EmailServer = value
 		case "email_test_address":
-			config.EmailTestAddress = record[1]
-			ok, err := regexp.Match(`^.+@.+\..{2,}$`, []byte(config.EmailTestAddress))
+			ok, err := regexp.Match(`^.+@.+\..{2,}$`, []byte(value))
 			if !ok || err != nil {
-				fmt.Println("The test email address provided isn't valid:", config.EmailTestAddress)
+				fmt.Println("The test email address provided isn't valid:", value)
 				return nil
 			}
+
+			config.EmailTestAddress = value
 		case "working_directory":
-			config.WorkingDirectory = record[1]
+			config.WorkingDirectory = value
 		case "bot_URI":
-			config.MessageSendEndpoint = record[1]
+			config.MessageSendEndpoint = value
 		default:
 			fmt.Printf("Parameter '%s' in config file not valid. Ignored.\n", record[0])
 		}
