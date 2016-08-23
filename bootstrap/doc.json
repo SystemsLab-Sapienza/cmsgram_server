@@ -1,0 +1,432 @@
+[{
+	"tipo": "Emerito",
+	"cognome": "Bohm",
+	"nome": "Bohm Corrado",
+	"url": "http://www.di.uniroma1.it/it/docenti/bohm-corrado",
+	"telefono": "+39.06.8845235",
+	"email": "bohm@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Bongiovanni",
+	"nome": "Bongiovanni Giancarlo",
+	"url": "http://www.di.uniroma1.it/it/docenti/bongiovanni",
+	"telefono": "+39.06.4991.8518",
+	"email": "bongiovanni@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Cinque",
+	"nome": "Cinque Luigi",
+	"url": "http://www.di.uniroma1.it/it/docenti/cinque",
+	"telefono": "+39.06.4991.8508",
+	"email": "cinque@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Fachini",
+	"nome": "Fachini Emanuela",
+	"url": "http://www.di.uniroma1.it/it/docenti/fachini",
+	"telefono": "+39.06.4991.8314",
+	"email": "fachini@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Korner",
+	"nome": "Korner Janos",
+	"url": "http://www.di.uniroma1.it/it/docenti/korner",
+	"telefono": "+39.06.4991.8353",
+	"email": "korner@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Labella",
+	"nome": "Labella Anna",
+	"url": "http://www.di.uniroma1.it/it/docenti/labella",
+	"telefono": "+39.06.4925.5159 (int. 36159)",
+	"email": "labella@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Malvestuto",
+	"nome": "Malvestuto Francesco Mario",
+	"url": "http://www.di.uniroma1.it/it/docenti/malvestuto",
+	"telefono": "+39.06.4991.8310",
+	"email": "malvestuto@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Mancini",
+	"nome": "Mancini Luigi Vincenzo",
+	"url": "http://www.di.uniroma1.it/it/docenti/mancini",
+	"telefono": "+39.06.4991.8421",
+	"email": "lv.mancini@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Mei",
+	"nome": "Mei Alessandro",
+	"url": "http://www.di.uniroma1.it/it/docenti/mei",
+	"telefono": "+39.06.4991.8528",
+	"email": "mei@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Moscarini",
+	"nome": "Moscarini Marina",
+	"url": "http://www.di.uniroma1.it/it/docenti/moscarini",
+	"telefono": "+39.06.4991.8307",
+	"email": "moscarini@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Panconesi",
+	"nome": "Panconesi Alessandro",
+	"url": "http://www.di.uniroma1.it/it/docenti/panconesi",
+	"telefono": "+39.06.4925.5157 (int. 36157)",
+	"email": "ale@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Parisi",
+	"nome": "Parisi Presicce Francesco",
+	"url": "http://www.di.uniroma1.it/it/docenti/parisi",
+	"telefono": "+39.06.4991.8512",
+	"email": "parisi@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Petreschi",
+	"nome": "Petreschi Rossella",
+	"url": "http://www.di.uniroma1.it/it/docenti/petreschi",
+	"telefono": "+39.06.4991.8511",
+	"email": "petreschi@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Petrioli",
+	"nome": "Petrioli Chiara",
+	"url": "http://www.di.uniroma1.it/it/docenti/petrioli",
+	"telefono": "+39.06.4991.8354",
+	"email": "petrioli@di.uniroma1.it"
+},
+{
+	"tipo": "Ordinario",
+	"cognome": "Velardi",
+	"nome": "Velardi Paola",
+	"url": "http://www.di.uniroma1.it/it/docenti/velardi",
+	"telefono": "+39.06.4991.8356",
+	"email": "velardi@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Bartolini",
+	"nome": "Bartolini Novella",
+	"url": "http://www.di.uniroma1.it/it/docenti/bartolini",
+	"telefono": "+39.06.4991.8357",
+	"email": "novella@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Bottoni",
+	"nome": "Bottoni Paolo",
+	"url": "http://www.di.uniroma1.it/it/docenti/bottoni",
+	"telefono": "+39.06.4925.5166 (int. 36166)",
+	"email": "bottoni@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Calamoneri",
+	"nome": "Calamoneri Tiziana",
+	"url": "http://www.di.uniroma1.it/it/docenti/calamoneri",
+	"telefono": "+39.06.4991.8422",
+	"email": "calamo@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Chierichetti",
+	"nome": "Chierichetti Flavio",
+	"url": "http://www.di.uniroma1.it/it/docenti/chierichetti",
+	"telefono": "+39.06.4925.5160 (int. 36160)",
+	"email": "flavio@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "De Marsico",
+	"nome": "De Marsico Maria",
+	"url": "http://www.di.uniroma1.it/it/docenti/demarsico",
+	"telefono": "+39.06.4991.8312",
+	"email": "demarsico@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Finocchi",
+	"nome": "Finocchi Irene",
+	"url": "http://www.di.uniroma1.it/it/docenti/finocchi",
+	"telefono": "+39.06.4991.8426",
+	"email": "finocchi@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Galesi",
+	"nome": "Galesi Nicola",
+	"url": "http://www.di.uniroma1.it/it/docenti/galesi",
+	"telefono": "+39.06.4991.8540",
+	"email": "galesi@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Gorla",
+	"nome": "Gorla Daniele",
+	"url": "http://www.di.uniroma1.it/it/docenti/gorla",
+	"telefono": "+39.06.4991.8434",
+	"email": "gorla@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Massini",
+	"nome": "Massini Annalisa",
+	"url": "http://www.di.uniroma1.it/it/docenti/massini",
+	"telefono": "+39.06.4991.8317",
+	"email": "massini@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Monti",
+	"nome": "Monti Angelo",
+	"url": "http://www.di.uniroma1.it/it/docenti/monti",
+	"telefono": "+39.06.4991.8429",
+	"email": "monti@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Navigli",
+	"nome": "Navigli Roberto",
+	"url": "http://www.di.uniroma1.it/it/docenti/navigli",
+	"telefono": "+39.06.4925.5161 (int. 36161)",
+	"email": "navigli@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Panizzi",
+	"nome": "Panizzi Emanuele",
+	"url": "http://www.di.uniroma1.it/it/docenti/panizzi",
+	"telefono": "+39.06.4991.8539",
+	"email": "panizzi@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Pellacini",
+	"nome": "Pellacini Fabio",
+	"url": "http://www.di.uniroma1.it/it/docenti/pellacini",
+	"telefono": "+39.06.4991.8308",
+	"email": "pellacini@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Piperno",
+	"nome": "Piperno Adolfo",
+	"url": "http://www.di.uniroma1.it/it/docenti/piperno",
+	"telefono": "+39.06.4991.8514",
+	"email": "piperno@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Silvestri",
+	"nome": "Silvestri Riccardo",
+	"url": "http://www.di.uniroma1.it/it/docenti/silvestri",
+	"telefono": "+39.06.4925.5165 (int. 36165)",
+	"email": "silvestri@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Tronci",
+	"nome": "Tronci Enrico",
+	"url": "http://www.di.uniroma1.it/it/docenti/tronci",
+	"telefono": "+39.06.4991.8361",
+	"email": "tronci@di.uniroma1.it"
+},
+{
+	"tipo": "Associato",
+	"cognome": "Wollan",
+	"nome": "Wollan Paul",
+	"url": "http://www.di.uniroma1.it/it/docenti/wollan",
+	"telefono": "+39.06.4925.5163 (int. 36163)",
+	"email": "wollan@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Carlucci",
+	"nome": "Carlucci Lorenzo",
+	"url": "http://www.di.uniroma1.it/it/docenti/carlucci",
+	"telefono": "+39.06.4925.5163 (int. 36163)",
+	"email": "carlucci@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Cenciarelli",
+	"nome": "Cenciarelli Pietro",
+	"url": "http://www.di.uniroma1.it/it/docenti/cenciarelli",
+	"telefono": "+39.06.4991.8435",
+	"email": "cencia@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "De Agostino",
+	"nome": "De Agostino Sergio",
+	"url": "http://www.di.uniroma1.it/it/docenti/deagostino",
+	"telefono": "+39.06.4991.8529",
+	"email": "deagostino@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Franceschini",
+	"nome": "Franceschini Gianni",
+	"url": "http://www.di.uniroma1.it/it/docenti/franceschini",
+	"telefono": "+39.06.4991.8306",
+	"email": "franceschini@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Mancini",
+	"nome": "Mancini Toni",
+	"url": "http://www.di.uniroma1.it/it/docenti/tmancini",
+	"telefono": "+39.06.4925.5162 (int. 36162)",
+	"email": "tmancini@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Mari",
+	"nome": "Mari Federico",
+	"url": "http://www.di.uniroma1.it/it/docenti/mari",
+	"telefono": "+39.06.4991.8360",
+	"email": "mari@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Maselli",
+	"nome": "Maselli Gaia",
+	"url": "http://www.di.uniroma1.it/it/docenti/maselli",
+	"telefono": "+39.06.4991.8438",
+	"email": "maselli@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Melatti",
+	"nome": "Melatti Igor",
+	"url": "http://www.di.uniroma1.it/it/docenti/melatti",
+	"telefono": "+39.06.4991.8438",
+	"email": "melatti@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Salvo",
+	"nome": "Salvo Ivano",
+	"url": "http://www.di.uniroma1.it/it/docenti/salvo",
+	"telefono": "+39.06.4991.8432",
+	"email": "salvo@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Stefa",
+	"nome": "Stefa Julinda",
+	"url": "http://www.di.uniroma1.it/it/docenti/stefa",
+	"telefono": "+39.06.4925.5164 (int. 36164)",
+	"email": "stefa@di.uniroma1.it"
+},
+{
+	"tipo": "Ricercatore",
+	"cognome": "Sterbini",
+	"nome": "Sterbini Andrea",
+	"url": "http://www.di.uniroma1.it/it/docenti/sterbini",
+	"telefono": "+39.06.4991.8538",
+	"email": "sterbini@di.uniroma1.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Bernaschi",
+	"nome": "Bernaschi Massimo",
+	"url": "http://www.di.uniroma1.it/it/docenti/bernaschi",
+	"telefono": "",
+	"email": "massimo.bernaschi@gmail.com"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Campanile",
+	"nome": "Campanile Gianni",
+	"url": "http://www.di.uniroma1.it/it/docenti/campanile",
+	"telefono": "",
+	"email": "gcampanile@esriitalia.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Castrignanò",
+	"nome": "Castrignanò Tiziana",
+	"url": "http://www.di.uniroma1.it/it/docenti/castrignano",
+	"telefono": "",
+	"email": "t.castrignano@cineca.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Cilli",
+	"nome": "Cilli Claudio",
+	"url": "http://www.di.uniroma1.it/it/docenti/cilli",
+	"telefono": "",
+	"email": "cilli@di.uniroma1.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Lutrario",
+	"nome": "Lutrario Francesco",
+	"url": "http://www.di.uniroma1.it/it/docenti/lutrario",
+	"telefono": "+39.3285423823",
+	"email": "lutrario@di.uniroma1.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Massaioli",
+	"nome": "Massaioli Federico",
+	"url": "http://www.di.uniroma1.it/it/docenti/massaioli",
+	"telefono": "",
+	"email": "federico.massaioli@caspur.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Mezzini",
+	"nome": "Mezzini Mauro",
+	"url": "http://www.di.uniroma1.it/it/docenti/mezzini",
+	"telefono": "+39.06.3689.0047",
+	"email": "mezzini@di.uniroma1.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Minelle",
+	"nome": "Minelle Federico",
+	"url": "http://www.di.uniroma1.it/it/docenti/minelle",
+	"telefono": "",
+	"email": "minelle@di.uniroma1"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Torrani",
+	"nome": "Torrani Silvia",
+	"url": "http://www.di.uniroma1.it/it/docenti/torrani",
+	"telefono": "",
+	"email": "torrani@di.uniroma1.it"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Vassallo",
+	"nome": "Vassallo Luigi",
+	"url": "http://www.di.uniroma1.it/it/docenti/vassallo",
+	"telefono": "",
+	"email": "lui.vax@gmail.com"
+},
+{
+	"tipo": "Esterno",
+	"cognome": "Verola",
+	"nome": "Verola Massimo",
+	"url": "http://www.di.uniroma1.it/it/docenti/verola",
+	"telefono": "",
+	"email": "massimo.verola@quadrics.it"
+}]
