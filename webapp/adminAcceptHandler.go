@@ -48,7 +48,7 @@ func accountAccept(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 	if data == nil {
-		return ErrGeneric // TODO use more specific error
+		return ErrGeneric
 	}
 
 	err = redis.ScanStruct(data, &userData)

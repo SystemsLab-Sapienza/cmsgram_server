@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/garyburd/redigo/redis"
@@ -19,15 +20,13 @@ func isNameTaken(w http.ResponseWriter, r *http.Request) error {
 		return ErrGeneric
 	}
 
-	// TODO use more specific error
 	err = json.Unmarshal(data, &payload)
 	if err != nil {
-		return ErrGeneric
+		return err
 	}
 
-	// TODO use more specific error
 	if payload.Key != "username" {
-		return ErrGeneric
+		return ErrWrongPayload
 	}
 
 	conn := pool.Get()
@@ -55,10 +54,9 @@ func isNameTaken(w http.ResponseWriter, r *http.Request) error {
 		payload.Value = "false"
 	}
 
-	// TODO use more specific error
 	data, err = json.Marshal(&payload)
 	if err != nil {
-		return ErrGeneric
+		return err
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -73,6 +71,7 @@ func isNameTakenHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
 		if err := isNameTaken(w, r); err != nil {
+			log.Println(err)
 			return
 		}
 	default:

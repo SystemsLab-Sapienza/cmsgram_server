@@ -17,4 +17,5 @@ var (
 	ErrNoUsername       = errors.New("Il campo username non può essere vuoto.")
 	ErrNameTaken        = errors.New("Nome utente già in uso.")
 	ErrWrongCredentials = errors.New("Credenziali non valide.")
+	ErrWrongPayload     = errors.New("Payload non valido.")
 )

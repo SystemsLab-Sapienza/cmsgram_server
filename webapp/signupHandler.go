@@ -46,7 +46,6 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 		return ErrNoMatch
 	}
 
-	// TODO get pattern from config file
 	// Email address not valid
 	ok, err := regexp.Match(`^.+@(.+)?uniroma1.it$`, []byte(email))
 	if !ok || err != nil {
@@ -97,10 +96,9 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 		return ErrGeneric
 	}
 
-	// TODO Return a more specific error
 	token, err := sendAuthLink(recipient)
 	if err != nil {
-		return ErrGeneric
+		return err
 	}
 	exptime := time.Now().Add(time.Hour).Unix()
 
@@ -120,7 +118,6 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
-// TODO Use a double handler for better error handling
 func signupHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 

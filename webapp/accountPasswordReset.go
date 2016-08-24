@@ -65,7 +65,6 @@ func resetPasswordPOST(w http.ResponseWriter, r *http.Request) error {
 			return ErrFieldEmpty
 		}
 
-		// TODO get pattern from config file
 		// Email address not valid
 		ok, err := regexp.Match(`^.+@(.+)?uniroma1.it$`, []byte(email))
 		if !ok || err != nil {
@@ -94,11 +93,10 @@ func resetPasswordPOST(w http.ResponseWriter, r *http.Request) error {
 			return ErrNoMatch
 		}
 
-		// TODO use more specific error
 		// Send reset link to the email address provided
 		token, err := sendResetLink(email)
 		if err != nil {
-			return ErrGeneric
+			return err
 		}
 		exptime := time.Now().Add(time.Minute * delay).Unix()
 
