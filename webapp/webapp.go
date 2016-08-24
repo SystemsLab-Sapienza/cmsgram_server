@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -14,9 +16,13 @@ import (
 var (
 	pool      *redis.Pool
 	templates *template.Template
+
+	flagConfigFile string
 )
 
 func init() {
+	flag.StringVar(&flagConfigFile, "c", "", "Specifies the path to the config file.")
+
 	http.Handle("/assets/", http.FileServer(http.Dir("templates")))
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/account/delete", accountDeleteHandler)
@@ -49,8 +55,14 @@ func init() {
 }
 
 func main() {
-	// TODO get the config file from the command line
-	if readConfigFile("/Users/marcofelici/go/src/bitbucket.org/ansijax/rfidlab_telegramdi_backend/webapp.conf") != nil {
+	flag.Parse()
+
+	if flagConfigFile == "" {
+		fmt.Println("You need to specify a configuration file: webapp -c /path/to/file")
+		return
+	}
+
+	if readConfigFile(flagConfigFile) != nil {
 		return
 	}
 
