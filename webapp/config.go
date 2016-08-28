@@ -44,6 +44,7 @@ func readConfigFile(filepath string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer f.Close()
 
 	r := csv.NewReader(f)
 	r.Comma = ':'
