@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 
 	"github.com/garyburd/redigo/redis"
 )
@@ -23,8 +23,7 @@ func main() {
 	flag.Parse()
 
 	if filepath == "" {
-		fmt.Println("You need to specify a file to import: bootstrap -i /path/to/file")
-		return
+		log.Fatal("You need to specify a file to import: bootstrap -i /path/to/file")
 	}
 
 	if socketpath != "" {
@@ -34,13 +33,12 @@ func main() {
 
 	c, err := redis.Dial(domain, address)
 	if err != nil {
-		fmt.Println("redis:", err)
-		return
+		log.Fatal("redis:", err)
 	}
 	defer c.Close()
 
 	err = bootstrap(c, filepath)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 }

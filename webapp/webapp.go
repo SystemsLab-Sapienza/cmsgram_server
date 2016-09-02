@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -58,17 +57,16 @@ func main() {
 	flag.Parse()
 
 	if flagConfigFile == "" {
-		fmt.Println("You need to specify a configuration file: webapp -c /path/to/file")
-		return
+		log.Fatal("You need to specify a configuration file: webapp -c /path/to/file")
 	}
 
-	if readConfigFile(flagConfigFile) != nil {
-		return
+	if err = readConfigFile(flagConfigFile); err != nil {
+		log.Fatal("Error while reading config file:", err)
 	}
 
 	// Change the working directory
 	if err := os.Chdir(config.WorkingDirectory); err != nil {
-		log.Fatal("main: os.Chdir:", err)
+		log.Fatal(err)
 	}
 
 	// Define templates functions
@@ -98,6 +96,5 @@ func main() {
 		"templates/signin.html",
 		"templates/view.html"))
 
-	// Start the server TODO get the port from the config file
 	log.Fatal("main: http.ListenAndServe:", http.ListenAndServe(":8080", nil))
 }
