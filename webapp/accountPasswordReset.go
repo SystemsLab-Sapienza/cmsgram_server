@@ -30,7 +30,7 @@ func resetPasswordGET(w http.ResponseWriter, r *http.Request) error {
 	token := r.FormValue("token")
 
 	// GET request w/o token means the user has requested the form for pwd reset
-	if token == "" {
+	if len(token) == 0 {
 		http.ServeFile(w, r, "templates/reset.html")
 	} else { // GET request with token means the user has clicked the link sent by email
 		conn := pool.Get()
@@ -55,13 +55,13 @@ func resetPasswordPOST(w http.ResponseWriter, r *http.Request) error {
 	token := r.PostFormValue("token")
 
 	// Post request w/o token means user has submitted the pwd reset form
-	if token == "" {
+	if len(token) == 0 {
 		var (
 			username = r.FormValue("username")
 			email    = r.FormValue("email")
 		)
 
-		if username == "" || email == "" {
+		if len(username) == 0 || len(email) == 0 {
 			return ErrFieldEmpty
 		}
 
@@ -127,7 +127,7 @@ func resetPasswordPOST(w http.ResponseWriter, r *http.Request) error {
 			return ErrDB
 		}
 
-		if pwd1 == "" || pwd2 == "" {
+		if len(pwd1) == 0 || len(pwd2) == 0 {
 			return ErrFieldEmpty
 		}
 

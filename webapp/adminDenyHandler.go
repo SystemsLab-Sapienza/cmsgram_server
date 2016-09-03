@@ -29,7 +29,7 @@ func accountDeny(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	if username == "" {
+	if len(username) == 0 {
 		return ErrFieldEmpty
 	}
 

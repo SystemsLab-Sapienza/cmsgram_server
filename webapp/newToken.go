@@ -6,25 +6,25 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
-// Generates a new len-character string in base 36 that's checked to be unique in the DB
-func newUniqueToken(len int, base string) (string, error) {
+// Generates a new length-character string in base 36 that's checked to be unique in the DB
+func newUniqueToken(length int, base string) (string, error) {
 	conn := pool.Get()
 	defer conn.Close()
 
-	token := auth.NewBase36(len)
+	token := auth.NewBase36(length)
 	res, err := redis.String(conn.Do("GET", base+token))
 	if err != nil && err != redis.ErrNil {
 		return "", ErrDB
 	}
 
 	for i := 0; i < 1e3; i++ {
-		token = auth.NewBase36(len)
+		token = auth.NewBase36(length)
 		res, err = redis.String(conn.Do("GET", base+token))
 		if err != nil && err != redis.ErrNil {
 			return "", ErrDB
 		}
 
-		if res == "" {
+		if len(res) == 0 {
 			return token, nil
 		}
 	}

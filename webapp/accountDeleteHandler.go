@@ -61,7 +61,7 @@ func accountDelete(w http.ResponseWriter, r *http.Request) error {
 		conn.Send("DEL", "webapp:messages:"+m)
 	}
 	conn.Send("DEL", "webapp:users:messages:"+uid)
-	if lname != "" {
+	if len(lname) != 0 {
 		conn.Send("SREM", "webapp:users:info:"+strings.ToLower(lname), uid)
 	}
 	_, err = conn.Do("EXEC")

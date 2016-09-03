@@ -18,10 +18,10 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 		exptime time.Time
 	)
 
-	if user == "" {
+	if len(user) == 0 {
 		return ErrNoUsername
 	}
-	if pwd == "" {
+	if len(pwd) == 0 {
 		return ErrNoPassword
 	}
 
@@ -35,14 +35,14 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// Check if username is actually an email address
-	if uid == "" {
+	if len(uid) == 0 {
 		uid, err = redis.String(conn.Do("HGET", "webapp:users:email", user))
 		if err != nil && err != redis.ErrNil {
 			return ErrDB
 		}
 	}
 
-	if uid == "" {
+	if len(uid) == 0 {
 		return ErrWrongCredentials
 	}
 
@@ -62,7 +62,7 @@ func signin(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	if rememberme == "" {
+	if len(rememberme) == 0 {
 		exptime = time.Now().AddDate(0, 0, 1)
 		cookie = http.Cookie{Name: "auth", Value: token, Path: "/", HttpOnly: true}
 	} else {

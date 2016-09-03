@@ -20,7 +20,7 @@ func isLoggedIn(w http.ResponseWriter, r *http.Request) (bool, string, error) {
 
 	// Nonexistent session
 	uid, err := redis.String(conn.Do("GET", "webapp:users:auth:session:"+cookie.Value))
-	if uid == "" {
+	if len(uid) == 0 {
 		return false, "", nil
 	} else if err != nil {
 		return false, "", ErrDB

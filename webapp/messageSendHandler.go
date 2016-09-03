@@ -27,7 +27,7 @@ func messageSend(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	msg := r.PostFormValue("message")
-	if msg == "" {
+	if len(msg) == 0 {
 		return ErrFieldEmpty
 	}
 

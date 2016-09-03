@@ -15,7 +15,7 @@ func sendEmail(to, subject, body string) (err error) {
 		}{to, subject, body}
 	)
 
-	if config.EmailTestAddress != "" {
+	if len(config.EmailTestAddress) != 0 {
 		data.Recipient = config.EmailTestAddress
 	}
 

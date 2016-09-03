@@ -37,7 +37,7 @@ func signup(w http.ResponseWriter, r *http.Request) error {
 	)
 
 	// One or more fields empty
-	if user == "" || pwd1 == "" || pwd2 == "" || email == "" {
+	if len(user) == 0 || len(pwd1) == 0 || len(pwd2) == 0 || len(email) == 0 {
 		return ErrFieldEmpty
 	}
 

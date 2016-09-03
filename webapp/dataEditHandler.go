@@ -42,7 +42,7 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 		case "email":
 			user.Email = v[0]
 			for _, e := range v[1:] {
-				if e != "" {
+				if len(e) != 0 {
 					user.EmailAltre = append(user.EmailAltre, e)
 				}
 			}
@@ -59,7 +59,7 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 		case "url":
 			user.Sito = v[0]
 			for _, s := range v[1:] {
-				if s != "" {
+				if len(s) != 0 {
 					user.SitoAltri = append(user.SitoAltri, s)
 				}
 			}
@@ -77,14 +77,14 @@ func dataEditPost(w http.ResponseWriter, r *http.Request) error {
 		return ErrDB
 	}
 	if lname != user.Cognome {
-		if lname != "" {
+		if len(lname) != 0 {
 			_, err = conn.Do("SREM", "webapp:users:info:"+strings.ToLower(lname), uid)
 			if err != nil {
 				return ErrDB
 			}
 		}
 
-		if user.Cognome != "" {
+		if len(user.Cognome) != 0 {
 			_, err = conn.Do("SADD", "webapp:users:info:"+strings.ToLower(user.Cognome), uid)
 			if err != nil {
 				return ErrDB

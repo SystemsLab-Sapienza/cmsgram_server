@@ -56,11 +56,11 @@ func init() {
 func main() {
 	flag.Parse()
 
-	if flagConfigFile == "" {
+	if len(flagConfigFile) == 0 {
 		log.Fatal("You need to specify a configuration file: webapp -c /path/to/file")
 	}
 
-	if err = readConfigFile(flagConfigFile); err != nil {
+	if err := readConfigFile(flagConfigFile); err != nil {
 		log.Fatal("Error while reading config file:", err)
 	}
 

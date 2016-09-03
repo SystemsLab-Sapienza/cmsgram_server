@@ -39,7 +39,7 @@ func accountPasswordChangePOST(w http.ResponseWriter, r *http.Request) error {
 		return nil
 	}
 
-	if pwd1 == "" || pwd2 == "" || pwd3 == "" {
+	if len(pwd1) == 0 || len(pwd2) == 0 || len(pwd3) == 0 {
 		msg := "Uno o più campi vuoti."
 		templates.ExecuteTemplate(w, "new.html", msg)
 		return nil
