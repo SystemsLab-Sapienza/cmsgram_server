@@ -32,6 +32,7 @@ func init() {
 	http.HandleFunc("/account/signout", signoutHandler)
 	http.HandleFunc("/account/signup", signupHandler)
 	http.HandleFunc("/admin/accept", adminAcceptHandler)
+	http.HandleFunc("/admin/delete", adminDeleteHandler)
 	http.HandleFunc("/admin/deny", adminDenyHandler)
 	http.HandleFunc("/data/edit", dataEditHandler)
 	http.HandleFunc("/data/view", dataViewHandler)

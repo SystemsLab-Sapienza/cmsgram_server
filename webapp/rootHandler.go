@@ -12,7 +12,10 @@ func serveAdminPanel(w http.ResponseWriter, r *http.Request) error {
 		Username string
 		Email    string
 	}
-	var userlist []user
+	var data = struct {
+		NewUsers []user
+		Accounts []account
+	}{}
 
 	conn := pool.Get()
 	defer conn.Close()
@@ -30,10 +33,15 @@ func serveAdminPanel(w http.ResponseWriter, r *http.Request) error {
 			return ErrDB
 		}
 
-		userlist = append(userlist, user{u, email})
+		data.NewUsers = append(data.NewUsers, user{u, email})
 	}
 
-	templates.ExecuteTemplate(w, "admin.html", userlist)
+	data.Accounts, err = getAccounts()
+	if err != nil {
+		return err
+	}
+
+	templates.ExecuteTemplate(w, "admin.html", data)
 
 	return nil
 }

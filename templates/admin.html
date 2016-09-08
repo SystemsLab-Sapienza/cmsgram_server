@@ -16,15 +16,15 @@
   </div>
   <div id="messagebox">
     <div class="separator">
-      {{- if .}}
-      {{- $n := len .}}
+      {{- if .NewUsers}}
+      {{- $n := len .NewUsers}}
       <span>{{$n}} nuove richieste</span>
       {{- else}}
-      <span>Nessuna richiesta</span>
+      <span>Nessuna nuova richiesta</span>
       {{- end}}
     </div>
-    {{- if .}}
-    {{- range .}}
+    {{- if .NewUsers}}
+    {{- range .NewUsers}}
     <div class="form-section">
       <div class="form-field">
         <input type="text" class="text-input" name="username" value="{{.Username}}" disabled>
@@ -33,11 +33,35 @@
       <div class="form-field">
         <form action="/admin/accept" id="admin-accept-form" method="post">
           <input type="hidden" name="username" value="{{.Username}}">
-          <button class="btn-green" type="submit">Accept</button>
+          <button class="btn-green" type="submit">Accetta</button>
         </form>
         <form action="/admin/deny" id="admin-deny-form" method="post">
           <input type="hidden" name="username" value="{{.Username}}">
-          <button class="btn-red" type="submit">Deny</button>
+          <button class="btn-red" type="submit">Rifiuta</button>
+        </form>
+      </div>
+    </div>
+    {{- end}}
+    {{- end}}
+    <div class="separator">
+      {{- if .Accounts}}
+      {{- $n := len .Accounts}}
+      <span>{{$n}} account attivi</span>
+      {{- else}}
+      <span>Nessun account attivo</span>
+      {{- end}}
+    </div>
+    {{- if .Accounts}}
+    {{- range .Accounts}}
+    <div class="form-section">
+      <div class="form-field">
+        <input type="text" class="text-input" name="username" value="{{.Username}}" disabled>
+        <input type="text" class="text-input fright" name="name" value="{{.Fullname}}" disabled>
+      </div>
+      <div class="form-field">
+        <form action="/admin/delete" id="admin-delete-form" method="post">
+          <input type="hidden" name="user_id" value="{{.ID}}">
+          <button class="btn-red" type="submit">Elimina account</button>
         </form>
       </div>
     </div>
