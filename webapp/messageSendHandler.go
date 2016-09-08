@@ -69,7 +69,7 @@ func messageSend(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// Send the payload
-	_, err = http.Post(config.MessageSendEndpoint, "application/json", bytes.NewReader(data))
+	_, err = http.Post(config.BotURI+"/message/send", "application/json", bytes.NewReader(data))
 	if err != nil {
 		return ErrNoServer
 	}

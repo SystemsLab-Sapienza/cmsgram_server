@@ -22,9 +22,9 @@ var (
 		RedisMaxIdle     int
 		RedisIdleTimeout int
 
-		Domain              string
-		MessageSendEndpoint string
-		WorkingDirectory    string
+		Domain           string
+		BotURI           string
+		WorkingDirectory string
 	}{}
 )
 
@@ -110,7 +110,7 @@ func readConfigFile(filepath string) error {
 		case "working_directory":
 			config.WorkingDirectory = value
 		case "bot_URI":
-			config.MessageSendEndpoint = value
+			config.BotURI = value
 		default:
 			fmt.Printf("Parameter '%s' in config file not valid. Ignored.\n", record[0])
 		}
