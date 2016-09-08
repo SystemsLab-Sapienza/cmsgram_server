@@ -58,5 +58,9 @@ func deleteAccount(uid string) error {
 		return ErrDB
 	}
 
+	if err = notifyDelete(uid); err != nil {
+		return err
+	}
+
 	return nil
 }
