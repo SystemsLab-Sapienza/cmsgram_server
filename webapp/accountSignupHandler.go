@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
@@ -28,10 +29,10 @@ func sendAuthLink(to string) (token string, err error) {
 
 func signup(w http.ResponseWriter, r *http.Request) error {
 	var (
-		user  = r.PostFormValue("username")
+		user  = strings.ToLower(r.PostFormValue("username"))
 		pwd1  = r.PostFormValue("password1")
 		pwd2  = r.PostFormValue("password2")
-		email = r.PostFormValue("email")
+		email = strings.ToLower(r.PostFormValue("email"))
 	)
 
 	// One or more fields empty

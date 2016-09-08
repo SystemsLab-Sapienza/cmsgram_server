@@ -8,7 +8,7 @@ username.oninput = function(e) {
 function checkUsername(name) {
 	var payload = {
 		Key: "username",
-		Value: name,
+		Value: name.toLowerCase(),
 	};
 	var req = new XMLHttpRequest();
 
