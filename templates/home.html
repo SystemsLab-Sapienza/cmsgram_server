@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#73c2df">
   <link rel="stylesheet" href="/assets/base.min.css">
+  <script src="/assets/home.js" defer></script>
 </head>
 <body>
   <div class="topbar">
@@ -19,6 +20,7 @@
     <div id="message-reply">
       <form action="/message/send" id="message-form" method="post">
         <textarea name="message"></textarea>
+        <label id="chars-count">0/4096</label>
         <button class="btn-blue" type="submit">Invia messaggio</button>
       </form>
     </div>

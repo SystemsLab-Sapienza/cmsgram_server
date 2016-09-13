@@ -99,6 +99,13 @@ textarea {
   background: rgba(164, 215, 234, 0.8);
   text-align: center;
 }
+#chars-count {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+  width: 70px;
+}
 #databox {
   width: 500px;
   margin: 60px auto;
