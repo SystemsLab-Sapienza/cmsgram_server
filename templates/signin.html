@@ -22,9 +22,14 @@
         <label for="rememberme">Ricordami</label>
         <span style="font-size: 13px;">·</span>
         <a href="/account/password/reset" class="forgot" style="font-size: 13px;
-    font-family: sans-serif">Password dimenticata?</a>
+        font-family: sans-serif">Password dimenticata?</a>
       </div>
     </form>
+    <div class="form-field">
+    <form action="/account/signup" method="get">
+        <button class="btn-green" type="submit">Registrati</button>
+      </form>
+    </div>
     {{- if .}}
     <div class="form-field">
       <p class="error-text">{{.}}</p>
