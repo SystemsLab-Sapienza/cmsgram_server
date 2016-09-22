@@ -12,6 +12,7 @@ import (
 )
 
 func messageSend(w http.ResponseWriter, r *http.Request) error {
+	const maxlen = 4096
 	var payload = struct {
 		Key   string
 		Value string
@@ -29,6 +30,19 @@ func messageSend(w http.ResponseWriter, r *http.Request) error {
 	msg := r.PostFormValue("message")
 	if len(msg) == 0 {
 		return ErrFieldEmpty
+	}
+
+	// Here we check that the message doesn't contain more charaters than the maximum allowed by the Bot API.
+	// First we convert the string (a slice of bytes) into a slice of runes (a rune is an int32
+	// which represents a Unicode code point). Then, we simply check that the number of runes, not the number of
+	// characters, is less than the maximum. This is because it's hard to define what a characters is, as the
+	// same character may be represented in multiple ways and may require more than a single code point.
+	// In other words, the same sequence of characters (or symbols) can be represented with different
+	// sequences of code points, wich will have different lengths (in bytes) once encoded in UTF-8.
+	// Since we only check the number of runes, we accept the possibility that we might refuse
+	// legal messages even though they contain at most 'maxlen' characters.
+	if len([]rune(msg)) > maxlen {
+		return ErrMessageTooLong
 	}
 
 	// Get the current timestamp

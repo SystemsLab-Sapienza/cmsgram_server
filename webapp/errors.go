@@ -11,6 +11,7 @@ var (
 	ErrEMailTaken       = errors.New("Indirizzo email già in uso.")
 	ErrFieldEmpty       = errors.New("Uno o più campi vuoti.")
 	ErrGeneric          = errors.New("Errore interno.")
+	ErrMessageTooLong   = errors.New("Messaggio troppo lungo.")
 	ErrNoMatch          = errors.New("I campi non corrispondono.")
 	ErrNoPassword       = errors.New("Il campo password non può essere vuoto.")
 	ErrNoServer         = errors.New("Impossibile raggiungere server remoto.")
